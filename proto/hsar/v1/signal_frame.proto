@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package hsar.v1;
+
+option go_package = "github.com/hsar-org/hsar/gen/go/hsar/v1";
+
+// =====================
+// Enums
+// =====================
+
+enum Tier {
+  TIER_UNSPECIFIED = 0;
+  TIER_1 = 1;
+  TIER_2 = 2;
+}
+
+enum Modality {
+  MODALITY_UNSPECIFIED = 0;
+  MODALITY_TEXT = 1;
+  MODALITY_AUDIO = 2;
+}
+
+enum AbstainReason {
+  ABSTAIN_REASON_UNSPECIFIED = 0;
+  ABSTAIN_EMPTY_INPUT = 1;
+  ABSTAIN_TOO_SHORT = 2;
+  ABSTAIN_UNSUPPORTED_MODALITY = 3;
+  ABSTAIN_LOW_CONFIDENCE = 4;
+  ABSTAIN_TIMEOUT = 5;
+  ABSTAIN_ERROR = 6;
+  ABSTAIN_BUDGET_EXCEEDED = 7;
+}
+
+// =====================
+// Messages
+// =====================
+
+message Signal {
+  // Stable name like: "failure_risk", "frustration_risk", "urgency"
+  string name = 1;
+
+  // Normalized to [0..1] for MVP
+  float value = 2;
+}
+
+message SignalFrame {
+  // Identifiers (no raw content)
+  string tenant_id = 1;
+  string request_id = 2;
+
+  // Execution context
+  Tier tier = 3;
+  Modality modality = 4;
+
+  // Signal-engine processing window (unix millis)
+  int64 ts_start_ms = 5;
+  int64 ts_end_ms = 6;
+
+  // Derived signals
+  repeated Signal signals = 7;
+
+  // Confidence for the overall frame (0..1), for gating policies.
+  float confidence = 8;
+
+  // Abstention contract
+  bool abstain = 9;
+  AbstainReason abstain_reason = 10;
+
+  // Helpful for observability
+  int32 processing_latency_ms = 11;
+
+  // Optional: freeform debug metadata that MUST NOT contain user content.
+  // Keep empty in production unless you have strict validation.
+  map<string, string> meta = 12;
+}
+

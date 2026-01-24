@@ -1,0 +1,29 @@
+cat > .gitignore << 'EOF'
+# OS
+.DS_Store
+
+# Build artifacts
+bin/
+dist/
+out/
+
+# Go
+*.exe
+*.test
+*.out
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Generated code
+**/*.pb.go
+**/*_pb2.py
+**/*_pb2_grpc.py
+EOF

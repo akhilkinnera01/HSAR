@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # 1. The Control Plane (Go Proxy)
+  proxy:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.proxy
+    ports:
+      - "8080:8080" # User Traffic
+    environment:
+      - SIGNAL_ENGINE_TARGET=signal-engine:50051
+      # Points to the mock backend service defined below
+      - BACKEND_URL=http://backend:8081
+      - PORT=8080
+    depends_on:
+      - signal-engine
+      - backend
+    networks:
+      - hsar-net
+
+  # 2. The Intelligence Plane (Python Signal Engine)
+  signal-engine:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.signal
+    expose:
+      - "50051" # gRPC Internal Only
+    networks:
+      - hsar-net
+
+  # 3. The Backend Mock (Temporary)
+  # Acts as a "Dummy OpenAI" so we don't spend money testing connectivity
+  backend:
+    image: python:3.10-slim
+    # Simple echo server
+    command: python3 -m http.server 8081
+    expose:
+      - "8081"
+    networks:
+      - hsar-net
+
+networks:
+  hsar-net:
+    driver: bridge

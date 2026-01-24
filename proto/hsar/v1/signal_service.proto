@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package hsar.v1;
+
+option go_package = "github.com/hsar-org/hsar/gen/go/hsar/v1";
+
+import "hsar/v1/signal_frame.proto";
+
+// =====================
+// Messages
+// =====================
+
+message SignalRequest {
+  string tenant_id = 1;
+  string request_id = 2;
+  
+  // The raw input to analyze
+  string text_payload = 3;
+  // bytes audio_payload = 4; // Reserved for v2
+}
+
+// =====================
+// Service Definition
+// =====================
+
+service SignalService {
+  // Analyzes the input and returns a forecasted SignalFrame.
+  // Must return within the strict latency budget (e.g. <30ms).
+  rpc ProcessSignal(SignalRequest) returns (SignalFrame);
+}

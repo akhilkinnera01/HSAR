@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package hsar.v1;
+
+option go_package = "github.com/hsar-org/hsar/gen/go/hsar/v1";
+
+// =====================
+// Enums
+// =====================
+
+enum ActionType {
+  ACTION_TYPE_UNSPECIFIED = 0;
+  ACTION_PASSTHROUGH = 1;           // No change
+  ACTION_DAMPEN_VERBOSITY = 2;      // Clamp max_tokens / verbosity
+  ACTION_INJECT_SYSTEM_CONTEXT = 3; // Prepend system instruction
+  ACTION_ESCALATE_HUMAN = 4;        // Handover / deflection
+  ACTION_BLOCK_UNSAFE = 5;          // (Rare) hard stop
+}
+
+enum StabilityState {
+  STATE_UNSPECIFIED = 0;
+  STATE_NORMAL = 1;
+  STATE_HYSTERESIS_ENTRY = 2; // Signal high, threshold not crossed yet
+  STATE_ACTIVE = 3;           // Policy enforced
+  STATE_COOLDOWN = 4;         // Signal dropped, policy still active
+}
+
+// =====================
+// Messages
+// =====================
+
+// Records a single control-plane decision made by HSAR.
+// Used for observability, debugging, and counterfactual analysis.
+message PolicyTrace {
+  // Observability
+  string tenant_id = 1;
+  string request_id = 2;
+  int64 timestamp_ms = 3;
+
+  // Artifact Info
+  string policy_id = 4;       // e.g. "standard-safety-policy"
+  string policy_version = 5;  // e.g. "v1.0.2"
+
+  // Decision Identity
+  string decision_id = 6;     // UUID for this decision
+
+  // Applied actions
+  repeated ActionApplied actions_applied = 7;
+
+  // Control-theory state
+  StabilityState stability_state = 8;
+}
+
+message ActionApplied {
+  ActionType type = 1;
+  string detail = 2; // e.g. "max_tokens=128", "verbosity=terse"
+}
+
