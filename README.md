@@ -30,7 +30,7 @@ HSAR introduces reliability without becoming a new single point of failure.
 ## High-Level Architecture
 
 <p align="center">
-  <img src="hsar-inference-pipeline.png" alt="HSAR Inference Pipeline" width="800">
+  <img src="HSAR Inference Pipeline.png" alt="HSAR Inference Pipeline" width="800">
 </p>
 
 HSAR intercepts requests, extracts human interaction signals asynchronously, evaluates policies, and conditionally mutates model requests before forwarding them to the backend.
