@@ -33,8 +33,10 @@ services:
   # Acts as a "Dummy OpenAI" so we don't spend money testing connectivity
   backend:
     image: python:3.10-slim
-    # Simple echo server
-    command: python3 -m http.server 8081
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: ["python3", "deploy/echo_backend.py"]
     expose:
       - "8081"
     networks:

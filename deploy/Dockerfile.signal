@@ -1,24 +1,21 @@
-# Runtime Stage (Python Slim)
 FROM python:3.10-slim
+
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Install System Dependencies (Minimal)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# Copy requirements and install
+COPY signal-engine/requirements.txt /app/signal-engine/requirements.txt
+RUN pip install --no-cache-dir -r /app/signal-engine/requirements.txt
 
-# Copy requirements
-COPY signal-engine/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy server code
+COPY signal-engine/ /app/signal-engine/
 
-# Copy Code & Generated Contracts
-COPY signal-engine/ .
-# Note: In Step 1 we generated python code into signal-engine/gen/python
-# We ensure the container can see it
-COPY signal-engine/gen/python/ ./gen/python/
+# Copy generated protobuf bindings from repo root
+COPY gen/python/ /app/gen/python/
 
-# Ensure generated code is importable
-ENV PYTHONPATH="${PYTHONPATH}:/app/gen/python"
+# Make generated code importable
+ENV PYTHONPATH=/app/gen/python
 
-CMD ["python", "main.py"]
+EXPOSE 50051
+CMD ["python3", "-u", "signal-engine/main.py"]

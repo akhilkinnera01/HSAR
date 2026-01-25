@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"io"
 	"log/slog"
 	"net/http"
 	"net/http/httputil"
@@ -12,24 +14,48 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+
+	// Import our internal engine client
+	"github.com/hsar-org/hsar/internal/engine"
 )
 
-// Config holds the runtime configuration
 type Config struct {
 	Port       string
 	BackendURL string
 }
 
 func main() {
-	// 1. Setup Structured Logging (JSON)
+	// 1. Setup Structured Logging
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	slog.SetDefault(logger)
 
-	// 2. Load Configuration
 	cfg := loadConfig()
-	logger.Info("starting_hsar_proxy", "port", cfg.Port, "backend", cfg.BackendURL)
+	logger.Info("starting_hsar_proxy",
+		"port", cfg.Port,
+		"backend", cfg.BackendURL,
+	)
 
-	// 3. Setup Reverse Proxy (The Fail-Open Path)
+	// 2. Initialize Signal Engine Client
+	// Modified logic per request: Log warning on failure, set client to nil, proceed fail-open.
+	var sigClient *engine.Client
+	var err error
+
+	sigClient, err = engine.NewClientFromEnv()
+	if err != nil {
+		slog.Warn("signal_engine_disabled", "error", err)
+		sigClient = nil
+	} else {
+		logger.Info("signal_engine_connected")
+	}
+
+	// Ensure cleanup happens if client was successfully created
+	defer func() {
+		if sigClient != nil {
+			_ = sigClient.Close()
+		}
+	}()
+
+	// 3. Setup Reverse Proxy
 	backendURL, err := url.Parse(cfg.BackendURL)
 	if err != nil {
 		logger.Error("invalid_backend_url", "error", err)
@@ -38,23 +64,20 @@ func main() {
 
 	proxy := httputil.NewSingleHostReverseProxy(backendURL)
 
-	// (Optional) Hop-by-hop header cleanup
-	// NewSingleHostReverseProxy does a lot, but explicit cleanup is safer.
+	// Hop-by-hop header cleanup
 	originalDirector := proxy.Director
 	proxy.Director = func(req *http.Request) {
 		originalDirector(req)
-		// Remove hop-by-hop headers to prevent connection issues upstream
 		req.Header.Del("Connection")
 		req.Header.Del("Keep-Alive")
 		req.Header.Del("Proxy-Authenticate")
 		req.Header.Del("Proxy-Authorization")
 		req.Header.Del("Te")
-		req.Header.Del("Trailer")
+		req.Header.Del("Trailers")
 		req.Header.Del("Transfer-Encoding")
 		req.Header.Del("Upgrade")
 	}
 
-	// Custom Error Handler for the Proxy (Fail-Open visibility)
 	proxy.ErrorHandler = func(w http.ResponseWriter, r *http.Request, err error) {
 		logger.Error("backend_connection_failed",
 			"trace_id", r.Header.Get("X-Request-ID"),
@@ -63,23 +86,23 @@ func main() {
 		http.Error(w, "Bad Gateway: Backend Unavailable", http.StatusBadGateway)
 	}
 
-	// 4. Setup Router & Middleware
+	// 4. Setup Router & Middleware Chain
 	mux := http.NewServeMux()
 
-	// Health Check Endpoint (Standard Ops)
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("ok"))
 	})
 
-	// Main Proxy Handler with Method Enforcement
-	// We wrap the proxy with our "Intervention" middleware
-	// For Step 2, this just logs and forwards (Pass-through)
+	// The Steel Thread Chain with Shadow Call
 	mux.Handle("/v1/chat/completions",
 		withLogging(
 			withTraceID(
-				withMethodEnforcement(http.MethodPost,
-					withRequestDeadline(15*time.Second, proxy), // Request-scoped deadline
+				withRequestDeadline(15*time.Second,
+					withMethodEnforcement(http.MethodPost,
+						// Inject the Shadow Call middleware here
+						withShadowSignalAnalysis(sigClient, proxy),
+					),
 				),
 			),
 		),
@@ -93,7 +116,6 @@ func main() {
 		WriteTimeout: 30 * time.Second,
 	}
 
-	// Graceful Shutdown Logic
 	go func() {
 		logger.Info("server_listening")
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
@@ -102,7 +124,6 @@ func main() {
 		}
 	}()
 
-	// Wait for Interrupt
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 	<-stop
@@ -117,7 +138,42 @@ func main() {
 // Middleware
 // =====================
 
-// withMethodEnforcement ensures only specific HTTP methods are allowed
+// withShadowSignalAnalysis forks a goroutine to call the signal engine.
+// It NEVER blocks the main request flow.
+func withShadowSignalAnalysis(client *engine.Client, next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// If client failed to init, skip everything (Fail Open)
+		if client == nil {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		// 1. Read body to get text (efficiently)
+		bodyBytes, err := io.ReadAll(r.Body)
+		if err != nil {
+			slog.Error("failed_to_read_body", "error", err)
+			next.ServeHTTP(w, r)
+			return
+		}
+		// Restore body for proxy
+		r.Body.Close()
+		r.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+
+		// 2. Launch Shadow Call (Fire and Forget)
+		reqID := r.Header.Get("X-Request-ID")
+		// Use a local copy of data to avoid race conditions if bodyBytes is reused (it's safe here)
+		textPayload := string(bodyBytes) // For MVP Step 3, treat JSON as text string
+
+		go func() {
+			// This runs in background. Does not delay response.
+			client.ShadowGetSignals("default-tenant", reqID, textPayload)
+		}()
+
+		// 3. Proceed immediately
+		next.ServeHTTP(w, r)
+	})
+}
+
 func withMethodEnforcement(allowedMethod string, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != allowedMethod {
@@ -128,19 +184,14 @@ func withMethodEnforcement(allowedMethod string, next http.Handler) http.Handler
 	})
 }
 
-// withRequestDeadline enforces a strict timeout for the entire request lifecycle
 func withRequestDeadline(timeout time.Duration, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Create a context with a hard deadline
 		ctx, cancel := context.WithTimeout(r.Context(), timeout)
 		defer cancel()
-
-		// Pass the new context down the chain
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
-// withTraceID ensures every request has a unique ID for observability
 func withTraceID(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		traceID := r.Header.Get("X-Request-ID")
@@ -148,22 +199,16 @@ func withTraceID(next http.Handler) http.Handler {
 			traceID = uuid.New().String()
 			r.Header.Set("X-Request-ID", traceID)
 		}
-		// Pass it back to the client too
 		w.Header().Set("X-Request-ID", traceID)
 		next.ServeHTTP(w, r)
 	})
 }
 
-// withLogging logs the request duration and status (Structured)
 func withLogging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-
-		// Use a wrapper to capture the status code
 		ww := &responseWrapper{ResponseWriter: w, statusCode: http.StatusOK}
-
 		next.ServeHTTP(ww, r)
-
 		slog.Info("request_served",
 			"trace_id", r.Header.Get("X-Request-ID"),
 			"method", r.Method,
@@ -173,10 +218,6 @@ func withLogging(next http.Handler) http.Handler {
 		)
 	})
 }
-
-// =====================
-// Helpers
-// =====================
 
 type responseWrapper struct {
 	http.ResponseWriter
@@ -193,13 +234,10 @@ func loadConfig() Config {
 	if port == "" {
 		port = "8080"
 	}
-
 	backend := os.Getenv("BACKEND_URL")
 	if backend == "" {
-		// Default to a local mock if not set
 		backend = "http://localhost:8081"
 	}
-
 	return Config{
 		Port:       port,
 		BackendURL: backend,
