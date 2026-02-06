@@ -13,7 +13,7 @@ COPY signal-engine/ /app/signal-engine/
 COPY gen/python/ /app/gen/python/
 
 # Make generated code importable
-ENV PYTHONPATH=/app/gen/python
+ENV PYTHONPATH=/app/gen/python:/app/signal-engine
 
 EXPOSE 50051
 CMD ["python3", "/app/signal-engine/main.py"]

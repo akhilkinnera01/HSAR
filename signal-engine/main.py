@@ -6,6 +6,7 @@ import grpc
 
 from hsar.v1 import signal_service_pb2, signal_service_pb2_grpc
 from hsar.v1 import signal_frame_pb2
+from tier1 import extract_tier1
 
 
 def now_ms() -> int:
@@ -16,14 +17,19 @@ class SignalService(signal_service_pb2_grpc.SignalServiceServicer):
     def ProcessSignal(self, request, context):
         start = now_ms()
 
-        # Stub logic: always return a deterministic dummy signal
-        # This proves wiring + contracts, not intelligence.
-        signals = [
-            signal_frame_pb2.Signal(name="frustration_risk", value=0.12),
-            signal_frame_pb2.Signal(name="failure_risk", value=0.05),
-        ]
+        result = extract_tier1(request.text_payload)
 
         end = now_ms()
+
+        signals = [
+            signal_frame_pb2.Signal(name=s["name"], value=s["value"])
+            for s in result["signals"]
+        ]
+
+        abstain_reason = signal_frame_pb2.AbstainReason.Value(
+            result["abstain_reason"]
+        )
+
         return signal_frame_pb2.SignalFrame(
             tenant_id=request.tenant_id or "default",
             request_id=request.request_id or "missing",
@@ -32,11 +38,11 @@ class SignalService(signal_service_pb2_grpc.SignalServiceServicer):
             ts_start_ms=start,
             ts_end_ms=end,
             signals=signals,
-            confidence=0.90,
-            abstain=False,
-            abstain_reason=signal_frame_pb2.ABSTAIN_REASON_UNSPECIFIED,
+            confidence=result["confidence"],
+            abstain=result["abstain"],
+            abstain_reason=abstain_reason,
             processing_latency_ms=max(0, end - start),
-            meta={"engine": "stub_v1"},
+            meta=result["meta"],
         )
 
 
