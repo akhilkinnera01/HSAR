@@ -6,6 +6,7 @@ cat > .gitignore << 'EOF'
 bin/
 dist/
 out/
+proxy
 
 # Go
 *.exe
