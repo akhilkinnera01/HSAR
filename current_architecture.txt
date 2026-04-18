@@ -1,0 +1,69 @@
+# HSAR System Architecture Status
+Date: 2026-01-24
+Status: Functional / "Steel Thread" Verified
+
+## High-Level Overview
+The system is a "Sidecar/Proxy" architecture designed to intercept traffic to an LLM provider (mocked) and perform real-time signal analysis without blocking the main request flow (Shadow Mode).
+
+Three main services are orchestrated via Docker Compose:
+
+1.  **Proxy** (Go, Port 8080): The entry point for all user traffic.
+2.  **Signal Engine** (Python, Port 50051): The intelligence layer that analyzes requests.
+3.  **Backend** (Python, Port 8081): A mock LLM provider (Echo service).
+
+## Request Flow (The "Steel Thread")
+
+1.  **Client Request**: User sends a POST request to `http://localhost:8080/v1/chat/completions`.
+2.  **Proxy Interception** (`cmd/proxy/main.go`):
+    *   The request enters the Go Proxy.
+    *   **Middleware Chain**:
+        1.  `withLogging`: Starts a timer.
+        2.  `withTraceID`: Generates or captures `X-Request-ID`.
+        3.  `withRequestDeadline`: Enforces a global timeout.
+        4.  `withMethodEnforcement`: Ensures only POST requests.
+        5.  `withShadowSignalAnalysis`: **The Key Logic**.
+            *   Reads the request body.
+            *   Spawns a **Goroutine** (background thread) to call the Signal Engine.
+            *   Proceeds immediately to the next step (non-blocking).
+3.  **Parallel Execution**:
+    *   **Path A (Main Flow)**: The Proxy forwards the request to the **Backend** (`echo_backend.py`) via `httputil.ReverseProxy`.
+    *   **Path B (Shadow Flow)**:
+        *   The Goroutine uses the gRPC Client (`internal/engine/client.go`) to call `SignalService.ProcessSignal`.
+        *   It waits up to 200ms (current debug setting) for a response.
+        *   On success, it logs the intelligence signals (e.g., `confidence`, `tier`).
+        *   On failure, it logs a warning but **does not affect Path A**.
+4.  **Response**: The Backend's response is returned to the user through the Proxy.
+
+## Component Details
+
+### 1. The Proxy (Control Plane)
+*   **Language**: Go 1.24
+*   **Key File**: `cmd/proxy/main.go`
+*   **Responsibility**: Traffic management, observability, and fail-open coordination.
+*   **Fail-Open Design**: If the Signal Engine is down or slow, the `withShadowSignalAnalysis` middleware catches the error/timeout, logs it, and ensures the user still gets a response from the backend.
+*   **gRPC Client**: Located in `internal/engine/client.go`. It connects to `signal-engine:50051`.
+
+### 2. The Signal Engine (Intelligence Plane)
+*   **Language**: Python 3.10
+*   **Key File**: `signal-engine/main.py`
+*   **Protocol**: gRPC (defined in `proto/hsar/v1/signal_service.proto`).
+*   **Logic**:
+    *   Implements `ProcessSignal` RPC.
+    *   Receives `request_id` and `text_payload`.
+    *   Calculates heuristic signals (frustration, urgency) based on text analysis (caps ratio, keywords).
+    *   Returns a `SignalFrame` containing these signals and a confidence score (default 0.7).
+*   **Docker**: Runs with `PYTHONUNBUFFERED=1` to ensure logs are visible immediately.
+
+### 3. The Backend (Mock)
+*   **Language**: Python 3.10
+*   **Key File**: `deploy/echo_backend.py`
+*   **Function**: Simulates an OpenAI-compatible API. Returns a fixed JSON response ("echo backend ok") to prove connectivity.
+
+## Infrastructure
+*   **Docker Compose**: Defines the network `hsar-net` allowing services to resolve each other by name (`proxy`, `signal-engine`, `backend`).
+*   **Protobuf**: The contract between Proxy and Signal Engine. Generated code exists in `gen/go` and `gen/python`.
+
+## Current Status
+*   **Wiring**: ✅ Confirmed. Proxy successfully sends requests to Signal Engine.
+*   **Latency**: ✅ Shadow call is off the critical path.
+*   **Reliability**: ✅ Fail-open verified (system works even if engine times out).
