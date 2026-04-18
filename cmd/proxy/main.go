@@ -80,7 +80,7 @@ func main() {
 	// Health Check Endpoint
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("ok"))
+		_, _ = w.Write([]byte("ok"))
 	})
 
 	// Main Proxy Handler with Middleware Chain
@@ -122,9 +122,9 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if signalClient != nil {
-		signalClient.Close()
+		_ = signalClient.Close()
 	}
-	server.Shutdown(ctx)
+	_ = server.Shutdown(ctx)
 }
 
 // =====================
@@ -137,7 +137,7 @@ func withSignalEngine(client *engine.Client, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if client != nil {
 			body, err := io.ReadAll(r.Body)
-			r.Body.Close()
+			_ = r.Body.Close()
 			if err == nil {
 				// Restore body for the reverse proxy
 				r.Body = io.NopCloser(bytes.NewReader(body))

@@ -5,7 +5,7 @@
 bin/
 dist/
 out/
-proxy
+/proxy
 
 # Go
 *.exe

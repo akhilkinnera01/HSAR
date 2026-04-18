@@ -4,8 +4,7 @@ from concurrent import futures
 
 import grpc
 
-from hsar.v1 import signal_service_pb2, signal_service_pb2_grpc
-from hsar.v1 import signal_frame_pb2
+from hsar.v1 import signal_frame_pb2, signal_service_pb2_grpc
 from tier1 import extract_tier1
 
 
