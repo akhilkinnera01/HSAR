@@ -1,4 +1,3 @@
-cat > .gitignore << 'EOF'
 # OS
 .DS_Store
 
@@ -23,8 +22,13 @@ venv/
 .vscode/
 .idea/
 
-# Generated code
-**/*.pb.go
-**/*_pb2.py
-**/*_pb2_grpc.py
-EOF
+# Generated protobuf code
+gen/
+
+# Plans / superpowers / claude local
+plans/
+.claude/
+
+# Env / secrets
+.env
+.env.*
