@@ -1,20 +1,25 @@
+FROM python:3.10-slim AS proto-builder
+
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN curl -sSL "https://github.com/bufbuild/buf/releases/download/v1.71.0/buf-Linux-$(uname -m)" \
+    -o /usr/local/bin/buf && chmod +x /usr/local/bin/buf
+
+WORKDIR /src
+COPY buf.yaml buf.gen.yaml proto/ ./
+RUN buf generate
+
 FROM python:3.10-slim
 
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Copy requirements and install
 COPY signal-engine/requirements.txt /app/signal-engine/requirements.txt
 RUN pip install --no-cache-dir -r /app/signal-engine/requirements.txt
 
-# Copy server code
 COPY signal-engine/ /app/signal-engine/
+COPY --from=proto-builder /src/gen/python/ /app/gen/python/
 
-# Copy generated protobuf bindings from repo root
-COPY gen/python/ /app/gen/python/
-
-# Make generated code importable
 ENV PYTHONPATH=/app/gen/python
 
 EXPOSE 50051
