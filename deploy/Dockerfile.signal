@@ -1,12 +1,13 @@
 FROM python:3.10-slim AS proto-builder
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates && rm -rf /var/lib/apt/lists/*
-RUN curl -sSL "https://github.com/bufbuild/buf/releases/download/v1.71.0/buf-Linux-$(uname -m)" \
-    -o /usr/local/bin/buf && chmod +x /usr/local/bin/buf
-
 WORKDIR /src
-COPY buf.yaml buf.gen.yaml proto/ ./
-RUN buf generate
+COPY signal-engine/requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+COPY proto/ /src/proto/
+RUN python3 -m grpc_tools.protoc -I proto \
+    --python_out=gen/python \
+    --grpc_python_out=gen/python \
+    proto/hsar/v1/*.proto
 
 FROM python:3.10-slim
 
