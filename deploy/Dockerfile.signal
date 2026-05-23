@@ -4,6 +4,7 @@ WORKDIR /src
 COPY signal-engine/requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 COPY proto/ /src/proto/
+RUN mkdir -p gen/python
 RUN python3 -m grpc_tools.protoc -I proto \
     --python_out=gen/python \
     --grpc_python_out=gen/python \
