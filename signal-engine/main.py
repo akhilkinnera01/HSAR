@@ -5,7 +5,6 @@ from concurrent import futures
 import grpc
 
 from heuristics import analyze_text
-from hsar.v1 import signal_frame_pb2
 from hsar.v1 import signal_service_pb2_grpc
 
 PORT = int(os.getenv("PORT", "50051"))
