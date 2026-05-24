@@ -4,7 +4,7 @@ PY_OUT=gen/python
 
 export PATH := $(HOME)/go/bin:$(PATH)
 
-.PHONY: proto gen-proto test lint up smoke
+.PHONY: proto gen-proto test lint vuln up smoke
 
 proto: gen-proto
 
@@ -30,6 +30,9 @@ lint: proto
 	go vet ./...
 	pip install -q -r $(PY_DEV)
 	cd signal-engine && python3 -m ruff check .
+
+vuln:
+	go run golang.org/x/vuln/cmd/govulncheck@latest ./...
 
 up:
 	docker compose up --build -d

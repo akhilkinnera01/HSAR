@@ -1,7 +1,7 @@
 # HSAR
 ### Human Signal Aware AI Runtime
 
-HSAR is a production-grade control plane that sits between users and foundation models to improve last-mile AI reliability.
+HSAR is a runtime governance control plane that sits between users and foundation models to improve last-mile AI reliability.
 
 It observes lightweight human interaction signals in real time and governs model behavior using bounded, deterministic controls, without retraining models or increasing GPU usage.
 
@@ -19,7 +19,7 @@ Prompt engineering, agent frameworks, and RLHF optimize model behavior in isolat
 
 - Runs as a fail-open sidecar between users and models  
 - Forecasts interaction failure risk using CPU-only signal inference  
-- Applies deterministic, reversible controls to model behavior  
+- Applies deterministic, reversible controls to model behavior *(policy engine: planned)*  
 - Degrades gracefully under load or failure  
 - Works across proprietary and open-weight models  
 
@@ -49,20 +49,39 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 
 ---
 
-## Documentation
+## Project Status
 
-- [Architecture Overview](docs/architecture.md)
-- [Policy Engine Design](docs/policy-engine.md) (planned)
-- [Threat Model](docs/threat-model.md) (planned)
+**Steel thread verified** — proxy, signal engine, and echo backend run end-to-end in shadow mode with tested fail-open behavior.
+
+| Capability | Status |
+|---|---|
+| Shadow signal analysis | ✅ Tested |
+| Fail-open on engine outage | ✅ Tested (`make smoke`) |
+| Unit + integration tests | ✅ `make test` |
+| CI (lint, test, vuln scan) | ✅ `.github/workflows/ci.yml` |
+| Real upstream + streaming | 🔜 Phase 1 |
+| Trained signal model | 🔜 Phase 2 |
+| Policy engine + enforce mode | 🔜 Phase 3–4 |
+| OTel + load/chaos benchmarks | 🔜 Phase 5 |
 
 ---
 
-## Project Status
+## Quick Start
 
-HSAR is currently in active design and prototyping.  
-The architecture is stable; implementation details are evolving.
+```bash
+make test          # unit tests (Go + Python)
+make up            # docker compose up
+make smoke         # end-to-end shadow + fail-open check
+```
 
-This repository prioritizes correctness, observability, and operational realism over rapid feature expansion.
+---
+
+## Documentation
+
+- [Architecture status](current_architecture.txt) — current implementation snapshot
+- Architecture overview — *planned (Phase 6)*
+- Policy engine design — *planned (Phase 3)*
+- Threat model — *planned (Phase 6)*
 
 ---
 
