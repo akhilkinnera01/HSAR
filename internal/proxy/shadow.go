@@ -30,8 +30,12 @@ func WithShadowSignalAnalysis(client SignalAnalyzer, next http.Handler) http.Han
 
 		reqID := r.Header.Get("X-Request-ID")
 		textPayload := string(bodyBytes)
+		tenantID := "default-tenant"
+		if tid, ok := TenantFromContext(r.Context()); ok {
+			tenantID = tid
+		}
 
-		go client.ShadowGetSignals("default-tenant", reqID, textPayload)
+		go client.ShadowGetSignals(tenantID, reqID, textPayload)
 
 		next.ServeHTTP(w, r)
 	})

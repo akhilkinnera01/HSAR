@@ -4,34 +4,34 @@ import (
 	"context"
 	"log/slog"
 	"net/http"
-	"net/http/httputil"
-	"net/url"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
+	"github.com/hsar-org/hsar/internal/config"
 	"github.com/hsar-org/hsar/internal/engine"
 	"github.com/hsar-org/hsar/internal/proxy"
 )
-
-type Config struct {
-	Port       string
-	BackendURL string
-}
 
 func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	slog.SetDefault(logger)
 
-	cfg := loadConfig()
+	cfg, err := config.Load()
+	if err != nil {
+		logger.Error("config_load_failed", "error", err)
+		os.Exit(1)
+	}
+
 	logger.Info("starting_hsar_proxy",
 		"port", cfg.Port,
-		"backend", cfg.BackendURL,
+		"upstream", cfg.UpstreamBaseURL,
+		"mode", cfg.Mode,
 	)
 
 	var sigClient *engine.Client
-	sigClient, err := engine.NewClientFromEnv()
+	sigClient, err = engine.NewClientFromEnv()
 	if err != nil {
 		slog.Warn("signal_engine_disabled", "error", err)
 		sigClient = nil
@@ -45,59 +45,40 @@ func main() {
 		}
 	}()
 
-	backendURL, err := url.Parse(cfg.BackendURL)
+	upstream, err := proxy.NewUpstream(cfg.UpstreamBaseURL)
 	if err != nil {
-		logger.Error("invalid_backend_url", "error", err)
+		logger.Error("invalid_upstream_url", "error", err)
 		os.Exit(1)
 	}
 
-	rp := httputil.NewSingleHostReverseProxy(backendURL)
+	rateLimiter := proxy.NewRateLimiter(cfg)
 
-	originalDirector := rp.Director
-	rp.Director = func(req *http.Request) {
-		originalDirector(req)
-		req.Header.Del("Connection")
-		req.Header.Del("Keep-Alive")
-		req.Header.Del("Proxy-Authenticate")
-		req.Header.Del("Proxy-Authorization")
-		req.Header.Del("Te")
-		req.Header.Del("Trailers")
-		req.Header.Del("Transfer-Encoding")
-		req.Header.Del("Upgrade")
-	}
-
-	rp.ErrorHandler = func(w http.ResponseWriter, r *http.Request, err error) {
-		logger.Error("backend_connection_failed",
-			"trace_id", r.Header.Get("X-Request-ID"),
-			"error", err,
-		)
-		http.Error(w, "Bad Gateway: Backend Unavailable", http.StatusBadGateway)
-	}
-
-	mux := http.NewServeMux()
-
-	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("ok"))
-	})
-
-	mux.Handle("/v1/chat/completions",
-		proxy.WithLogging(
-			proxy.WithTraceID(
-				proxy.WithRequestDeadline(15*time.Second,
-					proxy.WithMethodEnforcement(http.MethodPost,
-						proxy.WithShadowSignalAnalysis(sigClient, rp),
+	chatHandler := proxy.WithLogging(
+		proxy.WithTraceID(
+			proxy.WithRequestDeadline(15*time.Second,
+				proxy.WithMethodEnforcement(http.MethodPost,
+					proxy.WithAuth(cfg,
+						proxy.WithRateLimit(rateLimiter,
+							proxy.WithShadowSignalAnalysis(sigClient, upstream),
+						),
 					),
 				),
 			),
 		),
 	)
 
+	mux := http.NewServeMux()
+	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("ok"))
+	})
+	mux.Handle("/v1/chat/completions", chatHandler)
+
 	server := &http.Server{
 		Addr:         ":" + cfg.Port,
 		Handler:      mux,
 		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 30 * time.Second,
+		WriteTimeout: 0,
 	}
 
 	go func() {
@@ -116,19 +97,4 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	server.Shutdown(ctx)
-}
-
-func loadConfig() Config {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	backend := os.Getenv("BACKEND_URL")
-	if backend == "" {
-		backend = "http://localhost:8081"
-	}
-	return Config{
-		Port:       port,
-		BackendURL: backend,
-	}
 }
