@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 PROXY_URL="${PROXY_URL:-http://localhost:8080}"
+API_KEY="${API_KEY:-dev-key-1}"
 COMPOSE="docker compose"
 
 wait_for() {
@@ -24,8 +25,18 @@ wait_for() {
 echo "==> waiting for services"
 wait_for "$PROXY_URL/healthz" "proxy"
 
-echo "==> chat completion returns 200"
+echo "==> missing API key returns 401"
+code="$(curl -s -o /dev/null -w "%{http_code}" -X POST "$PROXY_URL/v1/chat/completions" \
+  -H 'content-type: application/json' \
+  -d '{"messages":[{"role":"user","content":"no auth"}]}')"
+if [ "$code" != "401" ]; then
+  echo "fail: expected 401 without API key, got $code" >&2
+  exit 1
+fi
+
+echo "==> chat completion returns 200 with auth"
 resp="$(curl -sf -X POST "$PROXY_URL/v1/chat/completions" \
+  -H "Authorization: Bearer $API_KEY" \
   -H 'content-type: application/json' \
   -H 'X-Request-ID: smoke-test-1' \
   -d '{"messages":[{"role":"user","content":"I AM SO ANGRY!!!"}]}')"
@@ -46,6 +57,7 @@ $COMPOSE stop signal-engine >/dev/null
 sleep 2
 
 resp2="$(curl -sf -X POST "$PROXY_URL/v1/chat/completions" \
+  -H "Authorization: Bearer $API_KEY" \
   -H 'content-type: application/json' \
   -H 'X-Request-ID: smoke-test-2' \
   -d '{"messages":[{"role":"user","content":"still works"}]}')"
