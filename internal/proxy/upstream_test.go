@@ -12,6 +12,21 @@ import (
 	"github.com/hsar-org/hsar/internal/proxy"
 )
 
+func TestUpstreamReturns502WhenUnreachable(t *testing.T) {
+	u, err := proxy.NewUpstream("http://127.0.0.1:1")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodPost, "/v1/chat/completions", strings.NewReader(`{"messages":[]}`))
+	u.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusBadGateway {
+		t.Fatalf("status = %d, want %d body = %s", rec.Code, http.StatusBadGateway, rec.Body.String())
+	}
+}
+
 func TestUpstreamNonStreamingPassthrough(t *testing.T) {
 	upstream := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/v1/chat/completions" {
