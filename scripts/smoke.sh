@@ -46,6 +46,19 @@ echo "$resp" | grep -q 'echo backend ok' || {
   exit 1
 }
 
+echo "==> streaming SSE passthrough"
+stream_resp="$(curl -sfN -X POST "$PROXY_URL/v1/chat/completions" \
+  -H "Authorization: Bearer $API_KEY" \
+  -H 'content-type: application/json' \
+  -H 'X-Request-ID: smoke-test-stream' \
+  -d '{"stream":true,"messages":[{"role":"user","content":"stream test"}]}' \
+  --max-time 10)"
+echo "$stream_resp" | grep -q 'echo' || {
+  echo "fail: expected streaming SSE chunk from echo backend" >&2
+  echo "$stream_resp" >&2
+  exit 1
+}
+
 echo "==> proxy logs contain signal frame"
 $COMPOSE logs proxy 2>/dev/null | grep -q 'signal_engine_signalframe' || {
   echo "fail: expected shadow signal frame log from proxy" >&2
