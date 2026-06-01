@@ -4,7 +4,7 @@ PY_OUT=gen/python
 
 export PATH := $(HOME)/go/bin:$(PATH)
 
-.PHONY: proto gen-proto test lint vuln up smoke
+.PHONY: proto gen-proto test lint vuln up smoke smoke-ollama
 
 proto: gen-proto
 
@@ -39,3 +39,6 @@ up:
 
 smoke: up
 	./scripts/smoke.sh
+
+smoke-ollama:
+	./scripts/smoke-ollama.sh
