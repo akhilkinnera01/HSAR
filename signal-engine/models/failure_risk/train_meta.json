@@ -1,0 +1,13 @@
+{
+  "selected": "logistic_regression",
+  "candidates": [
+    {
+      "name": "logistic_regression",
+      "val_pr_auc": 1.0
+    },
+    {
+      "name": "hist_gradient_boosting",
+      "val_pr_auc": 1.0
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "dataset": {
+    "total_rows": 600,
+    "train_rows": 552,
+    "test_rows": 48,
+    "test_source": "public_only_conversation_holdout",
+    "positive_rate_test": 0.5208333333333334
+  },
+  "candidates": [
+    {
+      "name": "logistic_regression",
+      "val_pr_auc": 1.0,
+      "test_pr_auc": 1.0,
+      "test_roc_auc": 1.0,
+      "test_brier": 0.00042037781455766615,
+      "test_ece": 0.01593017893208563,
+      "latency": {
+        "p50_ms": 0.0549584801774472,
+        "p99_ms": 0.10859778558369727,
+        "samples": 48
+      }
+    },
+    {
+      "name": "hist_gradient_boosting",
+      "val_pr_auc": 1.0,
+      "test_pr_auc": 1.0,
+      "test_roc_auc": 1.0,
+      "test_brier": 4.314151562296157e-11,
+      "test_ece": 5.055828505305867e-06,
+      "latency": {
+        "p50_ms": 7.5316250149626285,
+        "p99_ms": 13.748315525590442,
+        "samples": 48
+      }
+    }
+  ],
+  "selected": "logistic_regression"
+}
