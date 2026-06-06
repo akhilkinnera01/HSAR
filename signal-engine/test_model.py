@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+from unittest.mock import patch
 
 import pytest
 
@@ -77,6 +78,17 @@ def test_abstain_low_confidence_ambiguous():
         assert frame.confidence >= 0.55 or frame.confidence <= 0.45
 
 
+def test_abstain_low_confidence_deterministic():
+    analyzer = _analyzer()
+    with patch.object(analyzer, "_raw_score", return_value=0.5), patch.object(
+        analyzer, "_calibrate", return_value=0.5
+    ):
+        frame = analyzer.analyze("borderline customer message with enough length")
+
+    assert frame.abstain is True
+    assert frame.abstain_reason == signal_frame_pb2.ABSTAIN_LOW_CONFIDENCE
+
+
 def test_heuristic_fallback_missing_model():
     analyzer = ModelAnalyzer(
         model_path="/nonexistent/model.onnx",
@@ -90,6 +102,26 @@ def test_heuristic_fallback_missing_model():
     frame.meta["inference_source"] = "heuristic"
     frame.meta["model_version"] = "heuristic-v1"
     assert frame.meta["inference_source"] == "heuristic"
+    assert not frame.abstain
+
+
+def test_signal_service_heuristic_fallback_when_model_missing(monkeypatch):
+    monkeypatch.setenv("MODEL_PATH", "/nonexistent/model.onnx")
+    monkeypatch.setenv("CALIBRATION_PATH", "/nonexistent/calibration.json")
+
+    from hsar.v1 import signal_service_pb2
+    from main import SignalService
+
+    svc = SignalService()
+    req = signal_service_pb2.SignalRequest(
+        tenant_id="default-tenant",
+        request_id="svc-fallback-1",
+        text_payload="I AM SO ANGRY!!!",
+    )
+    frame = svc.ProcessSignal(req, None)
+
+    assert frame.meta["inference_source"] == "heuristic"
+    assert frame.meta["model_version"] == "heuristic-v1"
     assert not frame.abstain
 
 

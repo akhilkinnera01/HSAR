@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import pickle
 import time
 from pathlib import Path
 
@@ -21,10 +20,10 @@ from sklearn.preprocessing import StandardScaler
 
 from model.features import extract_features
 from training.prepare_data import conversation_safe_split, load_dataset, write_dataset
-from training.train import PICKLE_PATH
-
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK_JSON = ROOT / "models" / "failure_risk" / "benchmark_metrics.json"
+OPERATING_THRESHOLD = 0.5
+ABSTAIN_TAU = 0.55
 
 
 def _ece(y_true: np.ndarray, probs: np.ndarray, n_bins: int = 10) -> float:
@@ -38,6 +37,28 @@ def _ece(y_true: np.ndarray, probs: np.ndarray, n_bins: int = 10) -> float:
         conf = float(np.mean(probs[mask]))
         ece += abs(acc - conf) * (np.sum(mask) / len(y_true))
     return float(ece)
+
+
+def _abstention_rate(probs: np.ndarray, tau: float = ABSTAIN_TAU) -> float:
+    certainty = np.maximum(probs, 1.0 - probs)
+    return float(np.mean(certainty < tau))
+
+
+def _confusion_at_threshold(
+    y_true: np.ndarray, probs: np.ndarray, threshold: float = OPERATING_THRESHOLD
+) -> dict:
+    preds = (probs >= threshold).astype(int)
+    tp = int(np.sum((preds == 1) & (y_true == 1)))
+    tn = int(np.sum((preds == 0) & (y_true == 0)))
+    fp = int(np.sum((preds == 1) & (y_true == 0)))
+    fn = int(np.sum((preds == 0) & (y_true == 1)))
+    return {
+        "threshold": threshold,
+        "tp": tp,
+        "tn": tn,
+        "fp": fp,
+        "fn": fn,
+    }
 
 
 def _latency_percentiles(pipeline, texts: list[str], n_iter: int = 200) -> dict:
@@ -120,6 +141,8 @@ def evaluate(seed: int = 42) -> dict:
             "test_roc_auc": float(roc_auc_score(y_test, test_probs)),
             "test_brier": float(brier_score_loss(y_test, test_probs)),
             "test_ece": _ece(y_test, test_probs),
+            "test_abstention_rate": _abstention_rate(test_probs),
+            "confusion_at_threshold": _confusion_at_threshold(y_test, test_probs),
             "latency": _latency_percentiles(pipe, test_texts),
         }
         report["candidates"].append(metrics)

@@ -14,9 +14,17 @@
       "test_roc_auc": 1.0,
       "test_brier": 0.00042037781455766615,
       "test_ece": 0.01593017893208563,
+      "test_abstention_rate": 0.0,
+      "confusion_at_threshold": {
+        "threshold": 0.5,
+        "tp": 25,
+        "tn": 23,
+        "fp": 0,
+        "fn": 0
+      },
       "latency": {
-        "p50_ms": 0.0549584801774472,
-        "p99_ms": 0.10859778558369727,
+        "p50_ms": 0.05829200381413102,
+        "p99_ms": 0.13745924341492366,
         "samples": 48
       }
     },
@@ -27,9 +35,17 @@
       "test_roc_auc": 1.0,
       "test_brier": 4.314151562296157e-11,
       "test_ece": 5.055828505305867e-06,
+      "test_abstention_rate": 0.0,
+      "confusion_at_threshold": {
+        "threshold": 0.5,
+        "tp": 25,
+        "tn": 23,
+        "fp": 0,
+        "fn": 0
+      },
       "latency": {
-        "p50_ms": 7.5316250149626285,
-        "p99_ms": 13.748315525590442,
+        "p50_ms": 8.051854005316272,
+        "p99_ms": 21.7390007339418,
         "samples": 48
       }
     }

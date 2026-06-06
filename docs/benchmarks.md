@@ -22,10 +22,10 @@
 
 ## Head-to-head candidates (held-out test)
 
-| Model | Val PR-AUC | Test PR-AUC | Test ROC-AUC | Test Brier | Test ECE | p50 (ms) | p99 (ms) |
-|-------|------------|-------------|--------------|------------|----------|----------|----------|
-| logistic_regression | 1.000 | 1.000 | 1.000 | 0.0004 | 0.016 | 0.05 | 0.11 |
-| hist_gradient_boosting | 1.000 | 1.000 | 1.000 | ~0 | ~0 | 7.53 | 13.75 |
+| Model | Val PR-AUC | Test PR-AUC | Test ROC-AUC | Test Brier | Test ECE | Abstain rate (τ=0.55) | p50 (ms) | p99 (ms) |
+|-------|------------|-------------|--------------|------------|----------|------------------------|----------|----------|
+| logistic_regression | 1.000 | 1.000 | 1.000 | 0.0004 | 0.016 | 0.0% | 0.06 | 0.14 |
+| hist_gradient_boosting | 1.000 | 1.000 | 1.000 | ~0 | ~0 | 0.0% | 8.05 | 21.74 |
 
 **Selection**: `logistic_regression` — tied discrimination with lower latency and simpler ONNX surface.
 
@@ -35,9 +35,22 @@
 |--------|--------|----------------------------|
 | Inference p99 | < 30 ms | Pass (`test_model.py`) |
 
+## Confusion at operating threshold (0.5, held-out test)
+
+Selected model (`logistic_regression`):
+
+| | Predicted negative | Predicted positive |
+|--|------------------|------------------|
+| **Actual negative** | TN = 23 | FP = 0 |
+| **Actual positive** | FN = 0 | TP = 25 |
+
+HistGradientBoosting matches the same confusion matrix on this held-out split.
+
 ## Abstention
 
 Default confidence threshold τ = 0.55 (`ABSTAIN_CONFIDENCE_THRESHOLD`). Abstain when `max(p, 1-p) < τ`.
+
+Held-out **abstention rate**: 0.0% for both candidates (all test predictions exceed τ on this corpus).
 
 ## Limitations
 
