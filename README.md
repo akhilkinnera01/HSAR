@@ -62,7 +62,7 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 | Real upstream + streaming | ✅ Tested (`make test`, auth in `make smoke`) |
 | Tenant API key auth (401) | ✅ Tested |
 | Per-tenant rate limiting (429) | ✅ Tested |
-| Trained signal model | 🔜 Phase 2 |
+| Trained `failure_risk` model (ONNX, CPU) | ✅ Tested (`make test`) |
 | Policy engine + enforce mode | 🔜 Phase 3–4 |
 | OTel + load/chaos benchmarks | 🔜 Phase 5 |
 
@@ -87,6 +87,8 @@ Use `Authorization: Bearer dev-key-1` (default dev tenant) for chat requests.
 ## Documentation
 
 - [Architecture status](current_architecture.txt) — current implementation snapshot
+- [Signal model benchmarks](docs/benchmarks.md) — held-out metrics + latency
+- [failure_risk model card](signal-engine/models/failure_risk/model_card.md) — data, limits, version
 - Architecture overview — *planned (Phase 6)*
 - Policy engine design — *planned (Phase 3)*
 - Threat model — *planned (Phase 6)*
