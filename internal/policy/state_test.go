@@ -1,0 +1,68 @@
+package policy_test
+
+import (
+	"testing"
+
+	hsarv1 "github.com/hsar-org/hsar/gen/go/hsar/v1"
+	"github.com/hsar-org/hsar/internal/policy"
+)
+
+func TestAntiFlapOscillatingSignal(t *testing.T) {
+	p := policy.Policy{
+		PolicyID:         "flap-test",
+		PolicyVersion:    "v1",
+		CooldownRequests: 3,
+		Rules: []policy.PolicyRule{{
+			Signal:         "failure_risk",
+			EnterThreshold: 0.75,
+			ExitThreshold:  0.55,
+			Action:         "INJECT_SYSTEM_CONTEXT",
+		}},
+	}
+
+	st := policy.ConversationState{StabilityState: hsarv1.StabilityState_STATE_NORMAL}
+	sequence := []float32{0.80, 0.60, 0.80, 0.60, 0.80, 0.60}
+
+	entries := 0
+	prev := st.StabilityState
+	for _, risk := range sequence {
+		var d policy.Decision
+		d, st = policy.EvaluatePure(frameWithRisk(risk), st, p)
+		_ = d
+		if prev == hsarv1.StabilityState_STATE_NORMAL &&
+			st.StabilityState != hsarv1.StabilityState_STATE_NORMAL {
+			entries++
+		}
+		prev = st.StabilityState
+	}
+
+	if entries > 1 {
+		t.Fatalf("anti-flap violated: %d NORMAL→ACTIVE entries, want <=1", entries)
+	}
+}
+
+func TestCooldownHoldsActive(t *testing.T) {
+	p := policy.Policy{
+		PolicyID:         "cooldown-test",
+		PolicyVersion:    "v1",
+		CooldownRequests: 2,
+		Rules: []policy.PolicyRule{{
+			Signal:         "failure_risk",
+			EnterThreshold: 0.75,
+			ExitThreshold:  0.55,
+			Action:         "INJECT_SYSTEM_CONTEXT",
+		}},
+	}
+
+	st := policy.ConversationState{StabilityState: hsarv1.StabilityState_STATE_NORMAL}
+	_, st = policy.EvaluatePure(frameWithRisk(0.9), st, p)
+	if st.StabilityState != hsarv1.StabilityState_STATE_ACTIVE {
+		t.Fatalf("expected ACTIVE after high risk, got %v", st.StabilityState)
+	}
+
+	_, st = policy.EvaluatePure(frameWithRisk(0.4), st, p)
+	if st.StabilityState != hsarv1.StabilityState_STATE_COOLDOWN &&
+		st.StabilityState != hsarv1.StabilityState_STATE_ACTIVE {
+		t.Fatalf("expected COOLDOWN or ACTIVE during cooldown, got %v", st.StabilityState)
+	}
+}
