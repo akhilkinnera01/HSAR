@@ -59,7 +59,7 @@ func TestWithShadowSignalAnalysisFailOpenWhenEngineSlow(t *testing.T) {
 	addr, stop := startSignalGRPC(t, 2*time.Second)
 	defer stop()
 
-	client, err := engine.NewClient(addr)
+	client, err := engine.NewClient(addr, nil)
 	if err != nil {
 		t.Fatalf("NewClient: %v", err)
 	}
@@ -112,7 +112,7 @@ type recordingAnalyzer struct {
 	calls int
 }
 
-func (r *recordingAnalyzer) ShadowGetSignals(_, _, _ string) {
+func (r *recordingAnalyzer) ShadowGetSignals(_, _, _, _ string) {
 	r.mu.Lock()
 	r.calls++
 	r.mu.Unlock()

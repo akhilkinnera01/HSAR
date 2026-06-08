@@ -7,25 +7,27 @@ import (
 	"time"
 
 	hsarv1 "github.com/hsar-org/hsar/gen/go/hsar/v1"
+	"github.com/hsar-org/hsar/internal/policy"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
 type Client struct {
-	target string
-	conn   *grpc.ClientConn
-	stub   hsarv1.SignalServiceClient
+	target    string
+	conn      *grpc.ClientConn
+	stub      hsarv1.SignalServiceClient
+	evaluator *policy.Evaluator
 }
 
-func NewClientFromEnv() (*Client, error) {
+func NewClientFromEnv(evaluator *policy.Evaluator) (*Client, error) {
 	target := os.Getenv("SIGNAL_ENGINE_TARGET")
 	if target == "" {
 		target = "signal-engine:50051"
 	}
-	return NewClient(target)
+	return NewClient(target, evaluator)
 }
 
-func NewClient(target string) (*Client, error) {
+func NewClient(target string, evaluator *policy.Evaluator) (*Client, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
@@ -40,16 +42,17 @@ func NewClient(target string) (*Client, error) {
 	}
 
 	return &Client{
-		target: target,
-		conn:   conn,
-		stub:   hsarv1.NewSignalServiceClient(conn),
+		target:    target,
+		conn:      conn,
+		stub:      hsarv1.NewSignalServiceClient(conn),
+		evaluator: evaluator,
 	}, nil
 }
 
 func (c *Client) Close() error { return c.conn.Close() }
 
 // ShadowGetSignals: never blocks request path. Safe to run in a goroutine.
-func (c *Client) ShadowGetSignals(tenantID, requestID, text string) {
+func (c *Client) ShadowGetSignals(tenantID, requestID, conversationID, text string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
 	defer cancel()
 
@@ -73,4 +76,12 @@ func (c *Client) ShadowGetSignals(tenantID, requestID, text string) {
 		"confidence", sf.Confidence,
 		"latency_ms", sf.ProcessingLatencyMs,
 	)
+
+	if c.evaluator == nil {
+		return
+	}
+
+	decision := c.evaluator.Evaluate(tenantID, conversationID, sf)
+	trace := policy.BuildTrace(tenantID, requestID, c.evaluator.Policy, decision)
+	policy.LogTrace(trace)
 }
