@@ -65,6 +65,13 @@ $COMPOSE logs proxy 2>/dev/null | grep -q 'signal_engine_signalframe' || {
   exit 1
 }
 
+echo "==> proxy logs contain policy trace (optional)"
+if $COMPOSE logs proxy 2>/dev/null | grep -q 'policy_trace'; then
+  echo "ok: policy_trace log present"
+else
+  echo "warn: policy_trace not found yet (signal engine may still be warming up)"
+fi
+
 echo "==> fail-open with signal engine stopped"
 $COMPOSE stop signal-engine >/dev/null
 sleep 2
