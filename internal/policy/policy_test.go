@@ -47,6 +47,23 @@ func TestLoadMissingFileFails(t *testing.T) {
 	}
 }
 
+func TestValidateRejectsUnknownSignal(t *testing.T) {
+	p := policy.Policy{
+		PolicyID:         "x",
+		PolicyVersion:    "v1",
+		CooldownRequests: 1,
+		Rules: []policy.PolicyRule{{
+			Signal:         "unknown_signal",
+			EnterThreshold: 0.8,
+			ExitThreshold:  0.5,
+			Action:         "PASSTHROUGH",
+		}},
+	}
+	if err := p.Validate(); err == nil {
+		t.Fatal("expected validation error for unknown signal")
+	}
+}
+
 func TestLoadFromEnvPath(t *testing.T) {
 	root := filepath.Join("..", "..")
 	path := filepath.Join(root, "policies", "standard-safety-policy.yaml")

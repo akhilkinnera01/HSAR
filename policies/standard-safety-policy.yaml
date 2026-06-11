@@ -3,14 +3,14 @@ policy_version: v1.0.0
 cooldown_requests: 3
 rules:
   - signal: failure_risk
-    enter_threshold: 0.75
-    exit_threshold: 0.55
-    action: INJECT_SYSTEM_CONTEXT
-    params:
-      detail: "tone=calm;offer_escalation=true"
-  - signal: failure_risk
     enter_threshold: 0.90
     exit_threshold: 0.70
     action: DAMPEN_VERBOSITY
     params:
       detail: "max_tokens=128"
+  - signal: failure_risk
+    enter_threshold: 0.75
+    exit_threshold: 0.55
+    action: INJECT_SYSTEM_CONTEXT
+    params:
+      detail: "tone=calm;offer_escalation=true"

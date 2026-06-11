@@ -41,7 +41,10 @@ func (s *StateStore) lockFor(key string) *sync.Mutex {
 	m := &sync.Mutex{}
 	s.store[key] = m
 	if _, ok := s.data[key]; !ok {
-		s.data[key] = ConversationState{StabilityState: hsarv1.StabilityState_STATE_NORMAL}
+		s.data[key] = ConversationState{
+			StabilityState:   hsarv1.StabilityState_STATE_NORMAL,
+			MatchedRuleIndex: -1,
+		}
 	}
 	return m
 }
@@ -93,5 +96,6 @@ func transitionFSM(st *ConversationState, signalValue float32, rule PolicyRule, 
 			return
 		}
 		st.StabilityState = hsarv1.StabilityState_STATE_NORMAL
+		st.MatchedRuleIndex = -1
 	}
 }

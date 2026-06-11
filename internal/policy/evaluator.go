@@ -53,9 +53,30 @@ func signalValue(frame *hsarv1.SignalFrame, name string) (float32, bool) {
 	return 0, false
 }
 
-func matchRule(p Policy, frame *hsarv1.SignalFrame) (PolicyRule, int, bool) {
-	for i, rule := range p.Rules {
+func isFSMActive(state hsarv1.StabilityState) bool {
+	switch state {
+	case hsarv1.StabilityState_STATE_ACTIVE,
+		hsarv1.StabilityState_STATE_COOLDOWN,
+		hsarv1.StabilityState_STATE_HYSTERESIS_ENTRY:
+		return true
+	default:
+		return false
+	}
+}
+
+// selectRule picks the governing rule: sticky MatchedRuleIndex during FSM,
+// otherwise first ordered rule whose signal value meets enter_threshold.
+func selectRule(p Policy, frame *hsarv1.SignalFrame, st ConversationState) (PolicyRule, int, bool) {
+	if isFSMActive(st.StabilityState) && st.MatchedRuleIndex >= 0 && st.MatchedRuleIndex < len(p.Rules) {
+		rule := p.Rules[st.MatchedRuleIndex]
 		if _, ok := signalValue(frame, rule.Signal); ok {
+			return rule, st.MatchedRuleIndex, true
+		}
+	}
+
+	for i, rule := range p.Rules {
+		val, ok := signalValue(frame, rule.Signal)
+		if ok && val >= rule.EnterThreshold {
 			return rule, i, true
 		}
 	}
@@ -108,14 +129,16 @@ func EvaluatePure(frame *hsarv1.SignalFrame, st ConversationState, p Policy) (De
 		return decision, st
 	}
 
-	rule, idx, ok := matchRule(p, frame)
+	rule, idx, ok := selectRule(p, frame, st)
 	if !ok {
 		return decision, st
 	}
 
 	val, _ := signalValue(frame, rule.Signal)
 	next := st
-	next.MatchedRuleIndex = idx
+	if idx >= 0 {
+		next.MatchedRuleIndex = idx
+	}
 	transitionFSM(&next, val, rule, p.CooldownRequests)
 
 	decision.StabilityState = next.StabilityState

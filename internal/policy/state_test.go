@@ -20,7 +20,10 @@ func TestAntiFlapOscillatingSignal(t *testing.T) {
 		}},
 	}
 
-	st := policy.ConversationState{StabilityState: hsarv1.StabilityState_STATE_NORMAL}
+	st := policy.ConversationState{
+		StabilityState:   hsarv1.StabilityState_STATE_NORMAL,
+		MatchedRuleIndex: -1,
+	}
 	sequence := []float32{0.80, 0.60, 0.80, 0.60, 0.80, 0.60}
 
 	entries := 0
@@ -54,7 +57,10 @@ func TestCooldownHoldsActive(t *testing.T) {
 		}},
 	}
 
-	st := policy.ConversationState{StabilityState: hsarv1.StabilityState_STATE_NORMAL}
+	st := policy.ConversationState{
+		StabilityState:   hsarv1.StabilityState_STATE_NORMAL,
+		MatchedRuleIndex: -1,
+	}
 	_, st = policy.EvaluatePure(frameWithRisk(0.9), st, p)
 	if st.StabilityState != hsarv1.StabilityState_STATE_ACTIVE {
 		t.Fatalf("expected ACTIVE after high risk, got %v", st.StabilityState)

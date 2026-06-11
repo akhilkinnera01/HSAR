@@ -10,6 +10,10 @@ import (
 
 const defaultPolicyPath = "policies/standard-safety-policy.yaml"
 
+var validSignals = map[string]struct{}{
+	"failure_risk": {},
+}
+
 var validActions = map[string]struct{}{
 	"ACTION_PASSTHROUGH":           {},
 	"ACTION_DAMPEN_VERBOSITY":        {},
@@ -76,6 +80,9 @@ func (p Policy) Validate() error {
 	for i, r := range p.Rules {
 		if r.Signal == "" {
 			return fmt.Errorf("rule %d: signal is required", i)
+		}
+		if _, ok := validSignals[r.Signal]; !ok {
+			return fmt.Errorf("rule %d: unknown signal %q", i, r.Signal)
 		}
 		if r.EnterThreshold <= r.ExitThreshold {
 			return fmt.Errorf("rule %d: enter_threshold must be > exit_threshold", i)
