@@ -83,5 +83,41 @@ func (c *Client) ShadowGetSignals(tenantID, requestID, conversationID, text stri
 
 	decision := c.evaluator.Evaluate(tenantID, conversationID, sf)
 	trace := policy.BuildTrace(tenantID, requestID, c.evaluator.Policy, decision)
-	policy.LogTrace(trace)
+	policy.LogTrace(trace, false)
+}
+
+// InlineGetSignals runs synchronous perception within the given budget.
+func (c *Client) InlineGetSignals(ctx context.Context, tenantID, requestID, text string) (*hsarv1.SignalFrame, error) {
+	if c == nil {
+		return nil, context.DeadlineExceeded
+	}
+
+	req := &hsarv1.SignalRequest{
+		TenantId:    tenantID,
+		RequestId:   requestID,
+		TextPayload: text,
+	}
+
+	sf, err := c.stub.ProcessSignal(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	slog.Info("signal_engine_signalframe",
+		"trace_id", requestID,
+		"tier", sf.Tier.String(),
+		"abstain", sf.Abstain,
+		"confidence", sf.Confidence,
+		"latency_ms", sf.ProcessingLatencyMs,
+		"inline", true,
+	)
+	return sf, nil
+}
+
+// Evaluator returns the policy evaluator attached to this client.
+func (c *Client) Evaluator() *policy.Evaluator {
+	if c == nil {
+		return nil
+	}
+	return c.evaluator
 }
