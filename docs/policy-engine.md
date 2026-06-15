@@ -1,17 +1,59 @@
-# Policy Engine (Phase 3)
+# Policy Engine (Phase 3–4)
 
-The policy engine evaluates counterfactual governance decisions from `SignalFrame` outputs. In Phase 3 it runs in **shadow mode only** — it logs `policy_trace` records without mutating upstream requests or responses.
+The policy engine maps `SignalFrame` outputs to bounded governance actions via versioned YAML rules and a hysteresis/cooldown FSM.
 
-## Control loop
+## Modes
+
+| MODE | Behavior |
+|------|----------|
+| `shadow` | Async counterfactual `policy_trace` only; no request mutation |
+| `canary` | Inline enforce on `CANARY_PCT`% of requests (deterministic by `X-Request-ID`); shadow async for out-of-cohort |
+| `enforce` | Inline signal + policy + action application on all qualifying requests |
+
+Set `ENFORCE_KILL_SWITCH=true` to instantly disable all enforcement mutations (passthrough + traces continue).
+
+## Shadow control loop (Phase 3)
 
 ```text
-Request → Shadow goroutine
+Request → Shadow goroutine (async)
             ├─ gRPC ProcessSignal → SignalFrame
             ├─ policy.Evaluate(frame, conversationKey) → Decision
-            └─ slog.Info("policy_trace", ...) → PolicyTrace log
+            └─ slog.Info("policy_trace", enforce_applied=false)
 ```
 
-The user-facing path never waits on policy evaluation. If signal inference or policy evaluation fails, the request still passes through unchanged (fail-open).
+## Inline enforce loop (Phase 4)
+
+```text
+Request → InlineGovernance middleware (≤30ms budget)
+            ├─ InlineGetSignals → SignalFrame
+            ├─ policy.Evaluate → Decision
+            ├─ enforce.ApplyActions → mutate body or short-circuit
+            └─ slog.Info("policy_trace", enforce_applied=true|false)
+          → Upstream (or direct response on escalate/block)
+```
+
+Fail-open triggers (forward original body unchanged):
+
+- Budget exceeded
+- gRPC / perception error
+- `abstain=true` or passthrough decision
+- Kill switch active
+
+## Rollout gating
+
+```mermaid
+flowchart TD
+    A[Request] --> B{Kill switch?}
+    B -->|yes| C[Passthrough + shadow trace]
+    B -->|no| D{MODE}
+    D -->|shadow| C
+    D -->|canary| E{In canary cohort?}
+    E -->|no| C
+    E -->|yes| F[Inline enforce path]
+    D -->|enforce| F
+```
+
+Canary cohort: `fnv32(request_id) % 100 < CANARY_PCT`
 
 ## FSM (hysteresis + cooldown)
 
@@ -27,72 +69,31 @@ stateDiagram-v2
     ACTIVE --> ACTIVE: signal ≥ exit_threshold
 ```
 
-| State | Meaning |
-|-------|---------|
-| `NORMAL` | No active governance |
-| `HYSTERESIS_ENTRY` | Transient entry (same evaluation as ACTIVE) |
-| `ACTIVE` | Matched rule action applies counterfactually |
-| `COOLDOWN` | Signal dropped below exit; hold active for N requests |
+## Enforcement actions
 
-**Anti-flap**: `enter_threshold > exit_threshold` creates a hysteresis band. Once ACTIVE, oscillation near thresholds does not repeatedly re-enter from NORMAL until cooldown completes.
-
-## Conversation key
-
-```text
-conversation_id = X-Conversation-ID header
-                 OR X-Request-ID (fallback)
-state_key       = tenant_id + ":" + conversation_id
-```
+| Action | Effect |
+|--------|--------|
+| `INJECT_SYSTEM_CONTEXT` | Prepend system message from policy `detail` |
+| `DAMPEN_VERBOSITY` | Clamp `max_tokens`; add terse system hint |
+| `ESCALATE_HUMAN` | Short-circuit 200 handover JSON (no upstream) |
+| `BLOCK_UNSAFE` | Short-circuit 400 explicit error (no silent drop) |
+| `PASSTHROUGH` | No mutation |
 
 ## Declarative policy
 
-Policies are versioned YAML files loaded at proxy startup (`POLICY_PATH`, default `policies/standard-safety-policy.yaml`). Invalid or missing policy files cause fail-fast startup.
-
-Example rule:
-
-```yaml
-policy_id: standard-safety-policy
-policy_version: v1.0.0
-cooldown_requests: 3
-rules:
-  - signal: failure_risk
-    enter_threshold: 0.75
-    exit_threshold: 0.55
-    action: INJECT_SYSTEM_CONTEXT
-```
-
-Rules are evaluated top-to-bottom; the first rule with a readable signal value wins.
+Policies load at startup from `POLICY_PATH` (default `policies/standard-safety-policy.yaml`). Rules are ordered highest `enter_threshold` first; the first rule whose signal value meets `enter_threshold` wins.
 
 ## PolicyTrace log
-
-Each shadow evaluation emits structured JSON:
 
 ```json
 {
   "msg": "policy_trace",
   "trace_id": "<request-id>",
-  "tenant_id": "<tenant>",
-  "decision_id": "<uuid>",
+  "enforce_applied": true,
   "policy_id": "standard-safety-policy",
-  "policy_version": "v1.0.0",
   "stability_state": "STATE_ACTIVE",
-  "actions": [{"type": "ACTION_INJECT_SYSTEM_CONTEXT", "detail": "..."}]
+  "actions": [{"type": "ACTION_DAMPEN_VERBOSITY", "detail": "max_tokens=128"}]
 }
 ```
 
 No raw user content appears in traces.
-
-## Action strength (monotonicity)
-
-For property tests and safety reasoning, actions have a fixed strength ordering:
-
-`PASSTHROUGH(0) < DAMPEN_VERBOSITY(1) < INJECT_SYSTEM_CONTEXT(2) < ESCALATE_HUMAN(3) < BLOCK_UNSAFE(4)`
-
-Higher `failure_risk` should not produce a weaker action than a lower risk in the same policy.
-
-## Phase boundaries
-
-| Phase | Behavior |
-|-------|----------|
-| Phase 3 (now) | Shadow counterfactual traces only |
-| Phase 4 (planned) | Enforce mode — apply actions to requests/responses |

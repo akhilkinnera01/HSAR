@@ -33,7 +33,7 @@ HSAR introduces reliability without becoming a new single point of failure.
   <img src="HSAR Inference Pipeline.png" alt="HSAR Inference Pipeline" width="800">
 </p>
 
-HSAR intercepts requests, extracts human interaction signals asynchronously (shadow mode), evaluates YAML policy rules counterfactually, and forwards OpenAI-compatible chat completions to a configured upstream. Request mutation (enforce mode) is planned for Phase 4.
+HSAR intercepts requests, extracts human interaction signals, evaluates YAML policy rules, and forwards OpenAI-compatible chat completions to a configured upstream. Shadow mode logs counterfactual traces; enforce and canary modes apply bounded request mutations with a 30 ms fail-open budget.
 
 If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 
@@ -64,7 +64,8 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 | Per-tenant rate limiting (429) | ✅ Tested |
 | Trained `failure_risk` model (ONNX, CPU) | ✅ Tested (`make test`) |
 | Policy engine (shadow counterfactual traces) | ✅ Tested (`make test`) |
-| Enforce mode (request mutation) | 🔜 Phase 4 |
+| Enforce mode (inline mutation + fail-open) | ✅ Tested (`make test`, `scripts/smoke-enforce.sh`) |
+| Canary rollout + kill switch | ✅ Tested (`make test`) |
 | OTel + load/chaos benchmarks | 🔜 Phase 5 |
 
 ---
@@ -91,7 +92,7 @@ Use `Authorization: Bearer dev-key-1` (default dev tenant) for chat requests.
 - [Signal model benchmarks](docs/benchmarks.md) — held-out metrics + latency
 - [failure_risk model card](signal-engine/models/failure_risk/model_card.md) — data, limits, version
 - Architecture overview — *planned (Phase 6)*
-- [Policy engine design](docs/policy-engine.md) — hysteresis FSM, shadow counterfactual flow
+- [Policy engine design](docs/policy-engine.md) — FSM, shadow + enforce rollout, kill switch
 - Threat model — *planned (Phase 6)*
 
 ---

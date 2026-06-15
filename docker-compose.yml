@@ -13,7 +13,9 @@ services:
       - TENANT_API_KEYS=dev-key-1:default-tenant
       - TENANT_RATE_RPS=100
       - TENANT_RATE_BURST=100
-      - MODE=shadow
+      - MODE=${MODE:-shadow}
+      - CANARY_PCT=${CANARY_PCT:-0}
+      - ENFORCE_KILL_SWITCH=${ENFORCE_KILL_SWITCH:-false}
       - PORT=8080
     depends_on:
       - signal-engine
