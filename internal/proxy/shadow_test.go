@@ -11,6 +11,7 @@ import (
 	"time"
 
 	hsarv1 "github.com/hsar-org/hsar/gen/go/hsar/v1"
+	"github.com/hsar-org/hsar/internal/config"
 	"github.com/hsar-org/hsar/internal/engine"
 	"github.com/hsar-org/hsar/internal/proxy"
 	"google.golang.org/grpc"
@@ -65,7 +66,8 @@ func TestWithShadowSignalAnalysisFailOpenWhenEngineSlow(t *testing.T) {
 	}
 	defer client.Close()
 
-	handler := proxy.WithShadowSignalAnalysis(client, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	cfg := config.Config{Mode: config.ModeShadow}
+	handler := proxy.WithShadowSignalAnalysis(cfg, client, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte(`{"ok":true}`))
 	}))
@@ -90,7 +92,8 @@ func TestWithShadowSignalAnalysisFailOpenWhenClientNil(t *testing.T) {
 	t.Parallel()
 
 	var called bool
-	handler := proxy.WithShadowSignalAnalysis(nil, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	cfg := config.Config{Mode: config.ModeShadow}
+	handler := proxy.WithShadowSignalAnalysis(cfg, nil, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		called = true
 		w.WriteHeader(http.StatusOK)
 	}))
@@ -122,7 +125,8 @@ func TestWithShadowSignalAnalysisInvokesShadowWithoutBlocking(t *testing.T) {
 	t.Parallel()
 
 	analyzer := &recordingAnalyzer{}
-	handler := proxy.WithShadowSignalAnalysis(analyzer, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	cfg := config.Config{Mode: config.ModeShadow}
+	handler := proxy.WithShadowSignalAnalysis(cfg, analyzer, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusCreated)
 	}))
 
