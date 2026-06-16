@@ -60,10 +60,17 @@ echo "$stream_resp" | grep -q 'echo' || {
 }
 
 echo "==> proxy logs contain signal frame"
-$COMPOSE logs proxy 2>/dev/null | grep -q 'signal_engine_signalframe' || {
+for _ in $(seq 1 30); do
+  if $COMPOSE logs proxy 2>/dev/null | grep -q 'signal_engine_signalframe'; then
+    echo "ok: shadow signal frame log present"
+    break
+  fi
+  sleep 0.2
+done
+if ! $COMPOSE logs proxy 2>/dev/null | grep -q 'signal_engine_signalframe'; then
   echo "fail: expected shadow signal frame log from proxy" >&2
   exit 1
-}
+fi
 
 echo "==> proxy logs contain policy trace (optional)"
 if $COMPOSE logs proxy 2>/dev/null | grep -q 'policy_trace'; then

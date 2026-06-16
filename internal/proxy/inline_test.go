@@ -1,9 +1,12 @@
 package proxy_test
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"io"
+	"log/slog"
 	"net"
 	"net/http"
 	"net/http/httptest"
@@ -19,6 +22,28 @@ import (
 	"github.com/hsar-org/hsar/internal/proxy"
 	"google.golang.org/grpc"
 )
+
+type stubInlineClient struct {
+	frame *hsarv1.SignalFrame
+	err   error
+	eval  *policy.Evaluator
+}
+
+func (s *stubInlineClient) InlineGetSignals(context.Context, string, string, string) (*hsarv1.SignalFrame, error) {
+	return s.frame, s.err
+}
+
+func (s *stubInlineClient) Evaluator() *policy.Evaluator { return s.eval }
+
+func withLogCapture(t *testing.T, fn func()) string {
+	t.Helper()
+	var buf bytes.Buffer
+	prev := slog.Default()
+	slog.SetDefault(slog.New(slog.NewJSONHandler(&buf, &slog.HandlerOptions{Level: slog.LevelDebug})))
+	t.Cleanup(func() { slog.SetDefault(prev) })
+	fn()
+	return buf.String()
+}
 
 type inlineSignalServer struct {
 	hsarv1.UnimplementedSignalServiceServer
@@ -186,6 +211,69 @@ func TestInlineGovernanceFailOpenOnAbstain(t *testing.T) {
 	handler.ServeHTTP(rec, req)
 	if !strings.Contains(gotBody, "hi") {
 		t.Fatalf("abstain should passthrough, got %s", gotBody)
+	}
+}
+
+func TestInlineGovernanceFailOpenBudgetReason(t *testing.T) {
+
+	addr, stop := startInlineGRPC(t, 2*time.Second, false)
+	defer stop()
+
+	path := filepath.Join("..", "..", "policies", "standard-safety-policy.yaml")
+	p, err := policy.Load(path)
+	if err != nil {
+		t.Fatalf("Load: %v", err)
+	}
+	client, err := engine.NewClient(addr, policy.NewEvaluator(p))
+	if err != nil {
+		t.Fatalf("NewClient: %v", err)
+	}
+	defer client.Close()
+
+	backend := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+
+	handler := proxy.WithInlineGovernance(testEnforceConfig(), client, backend)
+	req := httptest.NewRequest(http.MethodPost, "/v1/chat/completions", strings.NewReader(`{"messages":[{"role":"user","content":"angry"}]}`))
+	req.Header.Set("X-Request-ID", "inline-budget-reason")
+
+	logs := withLogCapture(t, func() {
+		handler.ServeHTTP(httptest.NewRecorder(), req)
+	})
+	if !strings.Contains(logs, `"trace_id":"inline-budget-reason"`) || !strings.Contains(logs, `"reason":"budget"`) {
+		t.Fatalf("expected budget fail-open reason for inline-budget-reason, logs=%s", logs)
+	}
+}
+
+func TestInlineGovernanceFailOpenSignalErrorEmitsTrace(t *testing.T) {
+
+	path := filepath.Join("..", "..", "policies", "standard-safety-policy.yaml")
+	p, err := policy.Load(path)
+	if err != nil {
+		t.Fatalf("Load: %v", err)
+	}
+	client := &stubInlineClient{
+		err:  errors.New("signal unavailable"),
+		eval: policy.NewEvaluator(p),
+	}
+
+	backend := http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+
+	handler := proxy.WithInlineGovernance(testEnforceConfig(), client, backend)
+	req := httptest.NewRequest(http.MethodPost, "/v1/chat/completions", strings.NewReader(`{"messages":[{"role":"user","content":"hi"}]}`))
+	req.Header.Set("X-Request-ID", "inline-signal-err")
+
+	logs := withLogCapture(t, func() {
+		handler.ServeHTTP(httptest.NewRecorder(), req)
+	})
+	if !strings.Contains(logs, `"reason":"signal_error"`) {
+		t.Fatalf("expected signal_error reason, logs=%s", logs)
+	}
+	if !strings.Contains(logs, `"msg":"policy_trace"`) {
+		t.Fatalf("expected passthrough policy_trace on signal error, logs=%s", logs)
 	}
 }
 
