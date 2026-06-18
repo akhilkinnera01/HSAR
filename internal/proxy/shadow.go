@@ -5,6 +5,7 @@ import (
 	"io"
 	"log/slog"
 	"net/http"
+	"time"
 
 	"github.com/hsar-org/hsar/internal/config"
 )
@@ -36,7 +37,18 @@ func WithShadowSignalAnalysis(cfg config.Config, client SignalAnalyzer, next htt
 			if tid, ok := TenantFromContext(r.Context()); ok {
 				tenantID = tid
 			}
-			go client.ShadowGetSignals(tenantID, reqID, conversationID, textPayload)
+			bag, hasBag := TelemetryFromContext(r.Context())
+			mode := string(cfg.Mode)
+			if hasBag && bag.Mode != "" {
+				mode = bag.Mode
+			}
+			go func() {
+				start := time.Now()
+				client.ShadowGetSignals(tenantID, reqID, conversationID, textPayload)
+				if hasBag && bag.Metrics != nil {
+					bag.Metrics.ShadowSignalDuration.WithLabelValues(mode).Observe(time.Since(start).Seconds())
+				}
+			}()
 		}
 
 		next.ServeHTTP(w, r)

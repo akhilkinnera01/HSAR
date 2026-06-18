@@ -16,10 +16,14 @@ type Decision struct {
 	Passthrough    bool
 }
 
+// StateTransitionHook records FSM transitions for observability.
+type StateTransitionHook func(from, to hsarv1.StabilityState)
+
 // Evaluator runs counterfactual policy evaluation.
 type Evaluator struct {
-	Policy Policy
-	Store  *StateStore
+	Policy              Policy
+	Store               *StateStore
+	OnStateTransition   StateTransitionHook
 }
 
 func NewEvaluator(p Policy) *Evaluator {
@@ -158,9 +162,13 @@ func EvaluatePure(frame *hsarv1.SignalFrame, st ConversationState, p Policy) (De
 func (e *Evaluator) Evaluate(tenantID, conversationID string, frame *hsarv1.SignalFrame) Decision {
 	var decision Decision
 	e.Store.Update(tenantID, conversationID, func(st *ConversationState) {
+		prev := st.StabilityState
 		var next ConversationState
 		decision, next = EvaluatePure(frame, *st, e.Policy)
 		*st = next
+		if e.OnStateTransition != nil && prev != next.StabilityState {
+			e.OnStateTransition(prev, next.StabilityState)
+		}
 	})
 	return decision
 }
