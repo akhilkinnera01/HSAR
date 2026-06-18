@@ -4,7 +4,7 @@ PY_OUT=gen/python
 
 export PATH := $(HOME)/go/bin:$(PATH)
 
-.PHONY: proto gen-proto test lint vuln up smoke smoke-ollama train-model
+.PHONY: proto gen-proto test lint vuln up smoke smoke-ollama train-model bench-load bench-chaos up-observability
 
 proto: gen-proto
 
@@ -48,3 +48,22 @@ train-model:
 	cd signal-engine && PYTHONPATH=.:../gen/python python3 training/train.py
 	cd signal-engine && PYTHONPATH=.:../gen/python python3 training/export_onnx.py
 	cd signal-engine && PYTHONPATH=.:../gen/python python3 training/evaluate.py
+
+up-observability:
+	docker compose -f docker-compose.yml -f deploy/docker-compose.observability.yml up --build -d
+
+bench-load: up
+	@command -v k6 >/dev/null || (echo "install k6: brew install k6" && exit 1)
+	@echo "Running baseline..."
+	@SCENARIO=baseline DURATION=30s VUS=10 k6 run bench/load.js
+	@echo "Running proxy shadow..."
+	@docker compose exec -T proxy sh -c 'export MODE=shadow' || true
+	@MODE=shadow docker compose up -d proxy
+	@SCENARIO=proxy DURATION=30s VUS=10 k6 run bench/load.js
+	@echo "Running proxy enforce..."
+	@MODE=enforce docker compose up -d proxy
+	@SCENARIO=proxy DURATION=30s VUS=10 k6 run bench/load.js
+
+bench-chaos: up
+	@chmod +x bench/chaos.sh
+	@./bench/chaos.sh
