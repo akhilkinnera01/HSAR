@@ -67,7 +67,7 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 | Enforce mode (inline mutation + fail-open) | ✅ Tested (`make test`, `scripts/smoke-enforce.sh`) |
 | Canary rollout + kill switch | ✅ Tested (`make test`) |
 | OTel metrics/traces + `/metrics` | ✅ Tested (`make test`) |
-| Load + chaos benchmarks | ✅ Harness (`make bench-load`, `make bench-chaos`) |
+| Load + chaos benchmarks | ✅ Measured (`make bench-load`, `make bench-chaos` → `docs/benchmarks.md`) |
 | Grafana dashboard | ✅ [`dashboards/hsar.json`](dashboards/hsar.json) + `make up-observability` |
 
 ---

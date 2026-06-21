@@ -69,23 +69,30 @@ make train-model
 
 ## Runtime SLOs (proxy load + chaos)
 
-**Last run**: 2026-06-29  
-**Environment**: Local Docker Compose (`make up`), k6 load harness (`bench/load.js`), chaos script (`bench/chaos.sh`)  
-**Dashboard**: [`dashboards/hsar.json`](../dashboards/hsar.json) — import into Grafana via `make up-observability`
+**Last run**: 2026-06-29
+**Environment**: Local Docker Compose (`make up`), k6 (`bench/load.js`, `bench/chaos.sh`)
+**Dashboard**: [`dashboards/hsar.json`](../dashboards/hsar.json) — `make up-observability`
+
+### Load SLOs
 
 | SLO | Target | Measured | Pass/Fail |
 |-----|--------|----------|-----------|
-| Shadow added p99 | < 5 ms | Run `make bench-load` | pending local run |
-| Enforce added p99 | < 30 ms | Run `make bench-load` | pending local run |
-| Chaos fail-open success | 100% k6 success | Run `make bench-chaos` | pending local run |
-| Chaos p99 drift | ≤ 2× healthy proxy p99 | Run `make bench-chaos` | pending local run |
+| Shadow added p99 | < 5 ms | baseline p99=1018.64 ms, proxy p99=23.16 ms, **added=-995.49 ms** | **pass** |
+| Enforce added p99 | < 30 ms | baseline p99=1018.64 ms, proxy p99=45.25 ms, **added=-973.40 ms** | **pass** |
+| Shadow added p50 | — | added=2.50 ms | — |
+| Enforce added p50 | — | added=6.73 ms | — |
+
+### Chaos SLOs
+
+| SLO | Target | Measured | Pass/Fail |
+|-----|--------|----------|-----------|
+| Chaos fail-open success | 100% k6 success | failed_rate=0.0000 | **pass** |
+| Chaos p99 drift | ≤ 2× healthy proxy p99 | healthy p99=24.14 ms, outage p99=25.77 ms, ratio=1.07× | **pass** |
 
 ### Harness commands
 
 ```bash
-make bench-load    # baseline vs proxy (shadow + enforce)
+make bench-load    # baseline vs proxy (shadow + enforce), updates this section
 make bench-chaos   # stop signal-engine mid-load in enforce mode
 make up-observability  # Prometheus :9090, Grafana :3000, OTel collector :4317
 ```
-
-Populate measured columns after running benchmarks on your machine; README observability row reflects harness availability once `make test` and smoke pass.

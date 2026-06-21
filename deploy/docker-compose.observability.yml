@@ -19,6 +19,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
     volumes:
       - ./dashboards:/var/lib/grafana/dashboards:ro
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning:ro
     networks:
       - hsar-net
 
@@ -35,4 +36,5 @@ services:
   proxy:
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
+      - OTEL_ENABLED=true
       - METRICS_ENABLED=true
