@@ -71,3 +71,17 @@ func TestKillSwitchEnvOverridesConfig(t *testing.T) {
 		t.Fatal("env kill switch should disable enforce")
 	}
 }
+
+func TestWouldEnforceWithoutKillSwitch(t *testing.T) {
+	t.Parallel()
+
+	enforce := config.Config{Mode: config.ModeEnforce}
+	if !proxy.WouldEnforceWithoutKillSwitch(enforce, "req-1") {
+		t.Fatal("enforce mode would enforce without kill switch")
+	}
+
+	shadow := config.Config{Mode: config.ModeShadow}
+	if proxy.WouldEnforceWithoutKillSwitch(shadow, "req-1") {
+		t.Fatal("shadow mode would not enforce")
+	}
+}
