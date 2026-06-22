@@ -1,6 +1,8 @@
 package policy_test
 
 import (
+	"fmt"
+	"sync"
 	"testing"
 
 	hsarv1 "github.com/hsar-org/hsar/gen/go/hsar/v1"
@@ -71,4 +73,35 @@ func TestCooldownHoldsActive(t *testing.T) {
 		st.StabilityState != hsarv1.StabilityState_STATE_ACTIVE {
 		t.Fatalf("expected COOLDOWN or ACTIVE during cooldown, got %v", st.StabilityState)
 	}
+}
+
+func TestStateStoreConcurrentUpdate(t *testing.T) {
+	t.Parallel()
+
+	store := policy.NewStateStore()
+	p := policy.Policy{
+		PolicyID:      "concurrent",
+		PolicyVersion: "v1",
+		Rules: []policy.PolicyRule{{
+			Signal:         "failure_risk",
+			EnterThreshold: 0.5,
+			ExitThreshold:  0.3,
+			Action:         "PASSTHROUGH",
+		}},
+	}
+	eval := policy.NewEvaluator(p)
+
+	var wg sync.WaitGroup
+	for i := 0; i < 200; i++ {
+		wg.Add(1)
+		go func(n int) {
+			defer wg.Done()
+			tenant := fmt.Sprintf("tenant-%d", n%20)
+			conv := fmt.Sprintf("conv-%d", n)
+			frame := frameWithRisk(float32(n%100) / 100)
+			eval.Evaluate(tenant, conv, frame)
+			_ = store.Get(tenant, conv)
+		}(i)
+	}
+	wg.Wait()
 }

@@ -14,6 +14,7 @@ const latencyTrend = new Trend('hsar_latency_ms', true);
 export const options = {
   vus,
   duration,
+  summaryTrendStats: ['avg', 'min', 'med', 'max', 'p(90)', 'p(95)', 'p(99)'],
   thresholds: {
     http_req_failed: ['rate==0'],
   },

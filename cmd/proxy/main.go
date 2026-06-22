@@ -39,12 +39,10 @@ func main() {
 	}
 
 	ctx := context.Background()
-	otelCfg := telemetry.OTelConfig{
-		Endpoint:    cfg.OTelEndpoint,
-		ServiceName: cfg.OTelServiceName,
-		SampleRatio: cfg.TelemetrySampleRatio,
-		Enabled:     true,
-	}
+	otelCfg := telemetry.LoadOTelConfig()
+	otelCfg.Endpoint = cfg.OTelEndpoint
+	otelCfg.ServiceName = cfg.OTelServiceName
+	otelCfg.SampleRatio = cfg.TelemetrySampleRatio
 	tp, err := telemetry.InitTracer(ctx, otelCfg)
 	if err != nil {
 		slog.Warn("otel_init_failed", "error", err)

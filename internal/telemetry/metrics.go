@@ -12,6 +12,7 @@ type Metrics struct {
 	RequestDuration      *prometheus.HistogramVec
 	InlineDuration       *prometheus.HistogramVec
 	ShadowSignalDuration *prometheus.HistogramVec
+	InlineSignalDuration *prometheus.HistogramVec
 	PolicyDuration       *prometheus.HistogramVec
 	FailOpenTotal        *prometheus.CounterVec
 	AbstainTotal         prometheus.Counter
@@ -39,6 +40,11 @@ func NewMetrics(reg prometheus.Registerer) *Metrics {
 		ShadowSignalDuration: prometheus.NewHistogramVec(prometheus.HistogramOpts{
 			Name:    "hsar_shadow_signal_duration_seconds",
 			Help:    "Async shadow perception duration.",
+			Buckets: []float64{0.001, 0.005, 0.01, 0.02, 0.03, 0.05, 0.1, 0.25},
+		}, []string{"mode"}),
+		InlineSignalDuration: prometheus.NewHistogramVec(prometheus.HistogramOpts{
+			Name:    "hsar_inline_signal_duration_seconds",
+			Help:    "Inline perception gRPC duration on enforce path.",
 			Buckets: []float64{0.001, 0.005, 0.01, 0.02, 0.03, 0.05, 0.1, 0.25},
 		}, []string{"mode"}),
 		PolicyDuration: prometheus.NewHistogramVec(prometheus.HistogramOpts{
@@ -72,6 +78,7 @@ func NewMetrics(reg prometheus.Registerer) *Metrics {
 		m.RequestDuration,
 		m.InlineDuration,
 		m.ShadowSignalDuration,
+		m.InlineSignalDuration,
 		m.PolicyDuration,
 		m.FailOpenTotal,
 		m.AbstainTotal,

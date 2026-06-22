@@ -53,17 +53,9 @@ up-observability:
 	docker compose -f docker-compose.yml -f deploy/docker-compose.observability.yml up --build -d
 
 bench-load: up
-	@command -v k6 >/dev/null || (echo "install k6: brew install k6" && exit 1)
-	@echo "Running baseline..."
-	@SCENARIO=baseline DURATION=30s VUS=10 k6 run bench/load.js
-	@echo "Running proxy shadow..."
-	@docker compose exec -T proxy sh -c 'export MODE=shadow' || true
-	@MODE=shadow docker compose up -d proxy
-	@SCENARIO=proxy DURATION=30s VUS=10 k6 run bench/load.js
-	@echo "Running proxy enforce..."
-	@MODE=enforce docker compose up -d proxy
-	@SCENARIO=proxy DURATION=30s VUS=10 k6 run bench/load.js
+	@chmod +x bench/run_load.sh bench/wait_proxy.sh
+	@./bench/run_load.sh
 
 bench-chaos: up
-	@chmod +x bench/chaos.sh
+	@chmod +x bench/chaos.sh bench/wait_proxy.sh
 	@./bench/chaos.sh

@@ -97,7 +97,11 @@ func WithInlineGovernance(cfg config.Config, client InlineSignalClient, next htt
 			defer signalSpan.End()
 		}
 
+		signalStart := time.Now()
 		sf, err := client.InlineGetSignals(ctx, tenantID, reqID, string(bodyBytes))
+		if hasBag && bag.Metrics != nil {
+			bag.Metrics.InlineSignalDuration.WithLabelValues(mode).Observe(time.Since(signalStart).Seconds())
+		}
 		if err != nil {
 			reason := "signal_error"
 			if isBudgetExceeded(err) {
@@ -109,6 +113,12 @@ func WithInlineGovernance(cfg config.Config, client InlineSignalClient, next htt
 			r.Body = io.NopCloser(bytes.NewBuffer(originalBody))
 			next.ServeHTTP(w, r)
 			return
+		}
+
+		if hasBag && bag.Tracer != nil {
+			var policySpan trace.Span
+			ctx, policySpan = bag.Tracer.Start(ctx, "hsar.policy.evaluate")
+			defer policySpan.End()
 		}
 
 		policyStart := time.Now()
