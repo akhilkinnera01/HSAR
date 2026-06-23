@@ -4,7 +4,7 @@ PY_OUT=gen/python
 
 export PATH := $(HOME)/go/bin:$(PATH)
 
-.PHONY: proto gen-proto test lint vuln up smoke smoke-ollama train-model bench-load bench-chaos up-observability
+.PHONY: proto gen-proto test lint vuln up smoke smoke-ollama train-model bench-load bench-chaos up-observability demo
 
 proto: gen-proto
 
@@ -59,3 +59,7 @@ bench-load: up
 bench-chaos: up
 	@chmod +x bench/chaos.sh bench/wait_proxy.sh
 	@./bench/chaos.sh
+
+demo: up
+	@chmod +x scripts/demo.sh
+	@./scripts/demo.sh
