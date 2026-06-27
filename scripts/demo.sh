@@ -8,6 +8,18 @@ PROXY_URL="${PROXY_URL:-http://localhost:8080}"
 API_KEY="${API_KEY:-dev-key-1}"
 COMPOSE="docker compose"
 
+require_cmd() {
+  local cmd="$1"
+  local hint="$2"
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "fail: required command '$cmd' not found — $hint" >&2
+    exit 1
+  fi
+}
+
+require_cmd docker "install Docker Desktop or Docker Engine (https://docs.docker.com/get-docker/)"
+require_cmd curl "install curl (e.g. brew install curl)"
+
 wait_for() {
   local url="$1"
   local name="$2"

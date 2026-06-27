@@ -71,7 +71,7 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified. S
 | Grafana dashboard | ✅ [`dashboards/hsar.json`](dashboards/hsar.json) + `make up-observability` |
 | End-to-end demo | ✅ `make demo` → [docs/demo.md](docs/demo.md) |
 
-### Runtime SLOs (measured 2026-06-29)
+### Runtime SLOs (measured 2026-06-27)
 
 | SLO | Target | Result |
 |-----|--------|--------|

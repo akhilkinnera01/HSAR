@@ -36,6 +36,39 @@ demo: all checks passed
 
 Duration: under 2 minutes when services are already built; first run may take longer for image build.
 
+## Regenerate Grafana screenshot (`docs/assets/grafana-dashboard.png`)
+
+Used in README as observability proof alongside the Runtime SLO table.
+
+1. Start the observability stack and base services:
+
+```bash
+make up-observability
+```
+
+2. Send sample traffic so panels populate (wait ~15s for Prometheus scrape):
+
+```bash
+for i in $(seq 1 10); do
+  curl -s -X POST http://localhost:8080/v1/chat/completions \
+    -H "Authorization: Bearer dev-key-1" \
+    -H "Content-Type: application/json" \
+    -H "X-Request-ID: grafana-sample-$i" \
+    -d '{"messages":[{"role":"user","content":"grafana sample"}]}' >/dev/null
+done
+```
+
+3. Open Grafana at http://localhost:3000 (anonymous access enabled) and navigate to **HSAR Governance Health** (`dashboards/hsar.json`).
+
+4. Screenshot the dashboard and save as `docs/assets/grafana-dashboard.png`.
+
+```bash
+# macOS example (adjust window id as needed)
+screencapture -x docs/assets/grafana-dashboard.png
+```
+
+Or use any screenshot tool after the panels show data.
+
 ## Regenerate README visual (`docs/assets/demo.gif`)
 
 1. Run `make demo` in a terminal with readable font size.
