@@ -33,7 +33,7 @@ HSAR introduces reliability without becoming a new single point of failure.
   <img src="HSAR Inference Pipeline.png" alt="HSAR Inference Pipeline" width="800">
 </p>
 
-HSAR intercepts requests, extracts human interaction signals asynchronously, evaluates policies, and conditionally mutates model requests before forwarding them to the backend.
+HSAR intercepts requests, extracts human interaction signals asynchronously (shadow mode today), and forwards OpenAI-compatible chat completions to a configured upstream. Policy evaluation and request mutation are *(planned Phase 3–4)*.
 
 If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 
@@ -59,7 +59,9 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 | Fail-open on engine outage | ✅ Tested (`make smoke`) |
 | Unit + integration tests | ✅ `make test` |
 | CI (lint, test, vuln scan) | ✅ `.github/workflows/ci.yml` |
-| Real upstream + streaming | 🔜 Phase 1 |
+| Real upstream + streaming | ✅ Tested (`make test`, auth in `make smoke`) |
+| Tenant API key auth (401) | ✅ Tested |
+| Per-tenant rate limiting (429) | ✅ Tested |
 | Trained signal model | 🔜 Phase 2 |
 | Policy engine + enforce mode | 🔜 Phase 3–4 |
 | OTel + load/chaos benchmarks | 🔜 Phase 5 |
@@ -70,9 +72,15 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 
 ```bash
 make test          # unit tests (Go + Python)
-make up            # docker compose up
-make smoke         # end-to-end shadow + fail-open check
+make up            # docker compose up (echo upstream)
+make smoke         # auth + shadow + fail-open check
+
+# Optional: real model via Ollama
+docker compose --profile ollama up -d
+# set UPSTREAM_BASE_URL=http://ollama:11434 in proxy env
 ```
+
+Use `Authorization: Bearer dev-key-1` (default dev tenant) for chat requests.
 
 ---
 
