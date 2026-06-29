@@ -29,6 +29,8 @@ type Config struct {
 	UpstreamBaseURL string
 	Mode            Mode
 	CanaryPct       int
+	EnforceKillSwitch bool
+	InlineBudgetMs  int
 	TenantsByKey    map[string]Tenant
 	DefaultRPS      float64
 	DefaultBurst    int
@@ -45,9 +47,11 @@ func Load() (Config, error) {
 	cfg := Config{
 		Port:            envOr("PORT", "8080"),
 		UpstreamBaseURL: envOr("UPSTREAM_BASE_URL", envOr("BACKEND_URL", "http://localhost:8081")),
-		Mode:            Mode(envOr("MODE", string(ModeShadow))),
-		CanaryPct:       envIntOr("CANARY_PCT", 0),
-		DefaultRPS:      envFloatOr("TENANT_RATE_RPS", 10),
+		Mode:              Mode(envOr("MODE", string(ModeShadow))),
+		CanaryPct:         envIntOr("CANARY_PCT", 0),
+		EnforceKillSwitch: envBoolOr("ENFORCE_KILL_SWITCH", false),
+		InlineBudgetMs:    envIntOr("INLINE_BUDGET_MS", 30),
+		DefaultRPS:          envFloatOr("TENANT_RATE_RPS", 10),
 		DefaultBurst:    envIntOr("TENANT_RATE_BURST", 20),
 		TenantsByKey:    map[string]Tenant{},
 	}
@@ -162,6 +166,18 @@ func envIntOr(k string, def int) int {
 		return def
 	}
 	return n
+}
+
+func envBoolOr(k string, def bool) bool {
+	v := os.Getenv(k)
+	if v == "" {
+		return def
+	}
+	b, err := strconv.ParseBool(v)
+	if err != nil {
+		return def
+	}
+	return b
 }
 
 func envFloatOr(k string, def float64) float64 {

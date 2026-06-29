@@ -25,7 +25,7 @@ func BuildTrace(tenantID, requestID string, p Policy, d Decision) *hsarv1.Policy
 }
 
 // LogTrace emits structured policy_trace log (privacy-safe).
-func LogTrace(trace *hsarv1.PolicyTrace) {
+func LogTrace(trace *hsarv1.PolicyTrace, enforceApplied bool) {
 	actions := make([]map[string]string, 0, len(trace.GetActionsApplied()))
 	for _, a := range trace.GetActionsApplied() {
 		actions = append(actions, map[string]string{
@@ -41,6 +41,7 @@ func LogTrace(trace *hsarv1.PolicyTrace) {
 		"policy_id", trace.GetPolicyId(),
 		"policy_version", trace.GetPolicyVersion(),
 		"stability_state", trace.GetStabilityState().String(),
+		"enforce_applied", enforceApplied,
 		"actions", actions,
 	)
 }
