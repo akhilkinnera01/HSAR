@@ -9,7 +9,7 @@ import (
 
 // SignalAnalyzer performs non-blocking shadow signal extraction.
 type SignalAnalyzer interface {
-	ShadowGetSignals(tenantID, requestID, text string)
+	ShadowGetSignals(tenantID, requestID, conversationID, text string)
 }
 
 func WithShadowSignalAnalysis(client SignalAnalyzer, next http.Handler) http.Handler {
@@ -29,13 +29,17 @@ func WithShadowSignalAnalysis(client SignalAnalyzer, next http.Handler) http.Han
 		r.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 
 		reqID := r.Header.Get("X-Request-ID")
+		conversationID := r.Header.Get("X-Conversation-ID")
+		if conversationID == "" {
+			conversationID = reqID
+		}
 		textPayload := string(bodyBytes)
 		tenantID := "default-tenant"
 		if tid, ok := TenantFromContext(r.Context()); ok {
 			tenantID = tid
 		}
 
-		go client.ShadowGetSignals(tenantID, reqID, textPayload)
+		go client.ShadowGetSignals(tenantID, reqID, conversationID, textPayload)
 
 		next.ServeHTTP(w, r)
 	})

@@ -11,6 +11,7 @@ import (
 
 	"github.com/hsar-org/hsar/internal/config"
 	"github.com/hsar-org/hsar/internal/engine"
+	"github.com/hsar-org/hsar/internal/policy"
 	"github.com/hsar-org/hsar/internal/proxy"
 )
 
@@ -30,8 +31,19 @@ func main() {
 		"mode", cfg.Mode,
 	)
 
+	pol, err := policy.Load("")
+	if err != nil {
+		logger.Error("policy_load_failed", "error", err)
+		os.Exit(1)
+	}
+	evaluator := policy.NewEvaluator(pol)
+	logger.Info("policy_loaded",
+		"policy_id", pol.PolicyID,
+		"policy_version", pol.PolicyVersion,
+	)
+
 	var sigClient *engine.Client
-	sigClient, err = engine.NewClientFromEnv()
+	sigClient, err = engine.NewClientFromEnv(evaluator)
 	if err != nil {
 		slog.Warn("signal_engine_disabled", "error", err)
 		sigClient = nil

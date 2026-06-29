@@ -20,5 +20,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /bin/proxy cmd/proxy/main.go
 # Runtime Stage (Distroless / Scratch)
 FROM scratch
 COPY --from=builder /bin/proxy /bin/proxy
+COPY --from=builder /app/policies /policies
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+ENV POLICY_PATH=/policies/standard-safety-policy.yaml
 ENTRYPOINT ["/bin/proxy"]
