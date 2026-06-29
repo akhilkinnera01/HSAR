@@ -1,6 +1,6 @@
 # HSAR Signal Model Benchmarks (failure_risk v1.0.0)
 
-**Generated**: 2026-06-29  
+**Generated**: 2026-06-27  
 **Artifact**: `signal-engine/models/failure_risk/`  
 **Selected model**: `logistic_regression` (held-out PR-AUC tie-break vs HistGradientBoosting)
 
@@ -69,7 +69,7 @@ make train-model
 
 ## Runtime SLOs (proxy load + chaos)
 
-**Last run**: 2026-06-29
+**Last run**: 2026-06-27
 **Environment**: Local Docker Compose (`make up`), k6 (`bench/load.js`, `bench/chaos.sh`)
 **Dashboard**: [`dashboards/hsar.json`](../dashboards/hsar.json) — `make up-observability`
 

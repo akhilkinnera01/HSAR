@@ -97,3 +97,10 @@ Policies load at startup from `POLICY_PATH` (default `policies/standard-safety-p
 ```
 
 No raw user content appears in traces.
+
+## Related documentation
+
+- [Architecture overview](architecture.md) — three planes and request lifecycle
+- [Threat model](threat-model.md) — governance action abuse and privacy
+- [Runbook](runbook.md) — enforce rollout and kill switch
+- [Demo](demo.md) — `make demo` walkthrough
