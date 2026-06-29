@@ -1,0 +1,601 @@
+turn_id,text,label_failure,outcome_type,source,conversation_id
+public-155-34,Could you walk me through the refund process step by step?,0,none,public,conv-155
+synthetic-273-32,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-273
+synthetic-448-27,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-448
+synthetic-315-74,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-315
+public-135-14,Could you walk me through the refund process step by step?,0,none,public,conv-135
+synthetic-445-24,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-445
+synthetic-419-178,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-419
+public-133-12,I would like to change my shipping address on order 4421.,0,none,public,conv-133
+public-221-100,"Thanks for the update, that answers my question.",0,none,public,conv-221
+synthetic-269-28,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-269
+synthetic-357-116,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-357
+synthetic-595-174,Quick question: I would like to change my shipping address on order 4421.,0,none,synthetic,conv-595
+synthetic-410-169,!!! Stop ignoring me!!! I already told you three times!!! !!!,1,repeated_correction,synthetic,conv-410
+synthetic-547-126,Please help me understand my account balance for March. Thank you.,0,none,synthetic,conv-547
+synthetic-543-122,"Hi, Could you walk me through the refund process step by step?",0,none,synthetic,conv-543
+synthetic-512-91,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-512
+synthetic-350-109,Wrong again. Wrong again. Wrong again. Fix it immediately!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-350
+public-122-1,"No further action needed from my side, all good here.",0,none,public,conv-122
+synthetic-293-52,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-293
+synthetic-516-95,"Quick question: Thanks for the update, that answers my question.",0,none,synthetic,conv-516
+synthetic-428-7,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-428
+synthetic-519-98,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-519
+synthetic-532-111,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-532
+synthetic-382-141,"Terrible awful useless response, I am abandoning this chat Again: Terrible awful useless response, I am abandoning this chat",1,repeated_correction,synthetic,conv-382
+synthetic-583-162,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-583
+synthetic-358-117,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-358
+public-188-67,Could you walk me through the refund process step by step?,0,none,public,conv-188
+public-86-85,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-86
+synthetic-387-146,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-387
+public-110-109,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-110
+synthetic-560-139,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-560
+public-180-59,"No further action needed from my side, all good here.",0,none,public,conv-180
+public-203-82,Please help me understand my account balance for March.,0,none,public,conv-203
+public-132-11,Please help me understand my account balance for March.,0,none,public,conv-132
+public-141-20,"That worked perfectly, appreciate your help today.",0,none,public,conv-141
+public-185-64,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-185
+synthetic-354-113,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-354
+public-144-23,Please help me understand my account balance for March.,0,none,public,conv-144
+public-174-53,"That worked perfectly, appreciate your help today.",0,none,public,conv-174
+public-50-49,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-50
+synthetic-288-47,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-288
+synthetic-493-72,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-493
+public-126-5,"Thanks for the update, that answers my question.",0,none,public,conv-126
+synthetic-430-9,"Thanks for the update, that answers my question. Thank you.",0,none,synthetic,conv-430
+synthetic-348-107,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-348
+public-100-99,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-100
+synthetic-255-14,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-255
+synthetic-522-101,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-522
+public-58-57,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-58
+synthetic-521-100,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-521
+synthetic-480-59,"Thanks for the update, that answers my question. Thank you.",0,none,synthetic,conv-480
+public-208-87,Could you walk me through the refund process step by step?,0,none,public,conv-208
+public-216-95,"No further action needed from my side, all good here.",0,none,public,conv-216
+synthetic-397-156,!!! THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! !!!,1,repeated_correction,synthetic,conv-397
+public-134-13,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-134
+public-193-72,Could you walk me through the refund process step by step?,0,none,public,conv-193
+public-215-94,Could you walk me through the refund process step by step?,0,none,public,conv-215
+synthetic-477-56,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-477
+public-239-118,"No further action needed from my side, all good here.",0,none,public,conv-239
+public-7-6,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-7
+public-205-84,"Thanks for the update, that answers my question.",0,none,public,conv-205
+public-32-31,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-32
+synthetic-579-158,"Hi, Could you walk me through the refund process step by step?",0,none,synthetic,conv-579
+public-5-4,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-5
+public-152-31,"That worked perfectly, appreciate your help today.",0,none,public,conv-152
+synthetic-343-102,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-343
+public-146-25,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-146
+synthetic-520-99,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-520
+synthetic-518-97,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-518
+synthetic-462-41,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-462
+synthetic-355-114,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-355
+synthetic-508-87,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-508
+synthetic-509-88,Quick question: I would like to change my shipping address on order 4421.,0,none,synthetic,conv-509
+synthetic-303-62,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-303
+public-4-3,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-4
+public-154-33,"That worked perfectly, appreciate your help today.",0,none,public,conv-154
+synthetic-598-177,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-598
+synthetic-400-159,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-400
+synthetic-368-127,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-368
+public-235-114,"Thanks for the update, that answers my question.",0,none,public,conv-235
+synthetic-442-21,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-442
+synthetic-401-160,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-401
+synthetic-482-61,"Hi, That worked perfectly, appreciate your help today.",0,none,synthetic,conv-482
+synthetic-367-126,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-367
+public-16-15,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-16
+public-69-68,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-69
+synthetic-390-149,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-390
+synthetic-291-50,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-291
+public-95-94,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-95
+public-127-6,"No further action needed from my side, all good here.",0,none,public,conv-127
+public-115-114,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-115
+public-72-71,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-72
+synthetic-425-4,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-425
+public-108-107,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-108
+synthetic-381-140,"Terrible awful useless response, I am abandoning this chat Again: Terrible awful useless response, I am abandoning this chat",1,repeated_correction,synthetic,conv-381
+synthetic-246-5,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-246
+public-29-28,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-29
+synthetic-515-94,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-515
+synthetic-498-77,"Hi, That worked perfectly, appreciate your help today.",0,none,synthetic,conv-498
+synthetic-331-90,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-331
+synthetic-374-133,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-374
+public-202-81,"No further action needed from my side, all good here.",0,none,public,conv-202
+synthetic-550-129,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-550
+synthetic-285-44,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-285
+public-230-109,Could you walk me through the refund process step by step?,0,none,public,conv-230
+public-104-103,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-104
+public-183-62,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-183
+synthetic-280-39,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-280
+public-33-32,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-33
+public-22-21,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-22
+synthetic-476-55,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-476
+public-35-34,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-35
+synthetic-396-155,ESCALATE ESCALATE ESCALATE this is ridiculous!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-396
+synthetic-578-157,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-578
+public-191-70,Could you walk me through the refund process step by step?,0,none,public,conv-191
+public-131-10,"Thanks for the update, that answers my question.",0,none,public,conv-131
+synthetic-298-57,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-298
+public-101-100,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-101
+synthetic-457-36,"Quick question: Thanks for the update, that answers my question.",0,none,synthetic,conv-457
+synthetic-373-132,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-373
+synthetic-272-31,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-272
+synthetic-369-128,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-369
+synthetic-542-121,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-542
+synthetic-408-167,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-408
+synthetic-275-34,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-275
+synthetic-245-4,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-245
+public-204-83,I would like to change my shipping address on order 4421.,0,none,public,conv-204
+public-34-33,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-34
+public-94-93,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-94
+public-9-8,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-9
+public-113-112,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-113
+public-80-79,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-80
+synthetic-394-153,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-394
+public-25-24,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-25
+synthetic-297-56,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-297
+public-232-111,"Thanks for the update, that answers my question.",0,none,public,conv-232
+public-49-48,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-49
+public-57-56,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-57
+public-91-90,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-91
+synthetic-438-17,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-438
+synthetic-262-21,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-262
+public-182-61,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-182
+synthetic-527-106,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-527
+public-172-51,"Thanks for the update, that answers my question.",0,none,public,conv-172
+public-71-70,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-71
+synthetic-270-29,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-270
+public-6-5,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-6
+public-149-28,Could you walk me through the refund process step by step?,0,none,public,conv-149
+synthetic-546-125,"Quick question: Thanks for the update, that answers my question.",0,none,synthetic,conv-546
+synthetic-434-13,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-434
+public-200-79,Could you walk me through the refund process step by step?,0,none,public,conv-200
+public-147-26,I would like to change my shipping address on order 4421.,0,none,public,conv-147
+synthetic-342-101,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-342
+synthetic-497-76,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-497
+synthetic-393-152,ESCALATE ESCALATE ESCALATE this is ridiculous!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-393
+synthetic-555-134,"Thanks for the update, that answers my question. Thank you.",0,none,synthetic,conv-555
+public-99-98,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-99
+synthetic-478-57,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-478
+synthetic-267-26,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-267
+synthetic-517-96,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-517
+synthetic-351-110,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-351
+synthetic-474-53,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-474
+synthetic-561-140,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-561
+public-151-30,I would like to change my shipping address on order 4421.,0,none,public,conv-151
+synthetic-468-47,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-468
+synthetic-341-100,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-341
+synthetic-591-170,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-591
+public-41-40,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-41
+synthetic-309-68,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-309
+public-238-117,"That worked perfectly, appreciate your help today.",0,none,public,conv-238
+synthetic-274-33,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-274
+public-3-2,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-3
+synthetic-423-2,"Thanks for the update, that answers my question. Thank you.",0,none,synthetic,conv-423
+public-236-115,"Thanks for the update, that answers my question.",0,none,public,conv-236
+synthetic-494-73,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-494
+public-66-65,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-66
+public-164-43,"Thanks for the update, that answers my question.",0,none,public,conv-164
+synthetic-456-35,Please help me understand my account balance for March. Thank you.,0,none,synthetic,conv-456
+synthetic-581-160,"Hi, Could you walk me through the refund process step by step?",0,none,synthetic,conv-581
+synthetic-429-8,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-429
+synthetic-499-78,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-499
+synthetic-514-93,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-514
+public-62-61,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-62
+public-217-96,Please help me understand my account balance for March.,0,none,public,conv-217
+synthetic-338-97,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-338
+synthetic-263-22,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-263
+synthetic-484-63,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-484
+synthetic-375-134,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-375
+public-45-44,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-45
+synthetic-505-84,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-505
+synthetic-376-135,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-376
+synthetic-294-53,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-294
+synthetic-565-144,Could you walk me through the refund process step by step? Thank you.,0,none,synthetic,conv-565
+synthetic-528-107,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-528
+synthetic-446-25,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-446
+synthetic-329-88,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-329
+public-38-37,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-38
+public-111-110,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-111
+synthetic-573-152,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-573
+public-92-91,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-92
+synthetic-513-92,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-513
+synthetic-328-87,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-328
+public-84-83,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-84
+public-12-11,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-12
+synthetic-440-19,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-440
+synthetic-589-168,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-589
+synthetic-244-3,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-244
+public-43-42,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-43
+public-114-113,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-114
+synthetic-594-173,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-594
+public-181-60,"Thanks for the update, that answers my question.",0,none,public,conv-181
+synthetic-271-30,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-271
+synthetic-502-81,"Hi, I would like to change my shipping address on order 4421.",0,none,synthetic,conv-502
+public-26-25,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-26
+public-112-111,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-112
+public-24-23,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-24
+public-192-71,"Thanks for the update, that answers my question.",0,none,public,conv-192
+synthetic-316-75,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-316
+synthetic-567-146,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-567
+public-176-55,"That worked perfectly, appreciate your help today.",0,none,public,conv-176
+synthetic-365-124,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-365
+synthetic-558-137,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-558
+synthetic-574-153,"Hi, I would like to change my shipping address on order 4421.",0,none,synthetic,conv-574
+public-159-38,"That worked perfectly, appreciate your help today.",0,none,public,conv-159
+public-10-9,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-10
+public-139-18,"That worked perfectly, appreciate your help today.",0,none,public,conv-139
+synthetic-479-58,Quick question: I would like to change my shipping address on order 4421.,0,none,synthetic,conv-479
+synthetic-431-10,Could you walk me through the refund process step by step? Thank you.,0,none,synthetic,conv-431
+synthetic-492-71,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-492
+public-228-107,"No further action needed from my side, all good here.",0,none,public,conv-228
+synthetic-545-124,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-545
+public-161-40,"No further action needed from my side, all good here.",0,none,public,conv-161
+synthetic-553-132,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-553
+synthetic-380-139,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-380
+synthetic-422-1,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-422
+synthetic-566-145,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-566
+public-173-52,"That worked perfectly, appreciate your help today.",0,none,public,conv-173
+synthetic-418-177,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-418
+synthetic-427-6,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-427
+public-219-98,"No further action needed from my side, all good here.",0,none,public,conv-219
+synthetic-600-179,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-600
+public-167-46,Please help me understand my account balance for March.,0,none,public,conv-167
+synthetic-439-18,"Hi, I would like to change my shipping address on order 4421.",0,none,synthetic,conv-439
+public-178-57,Could you walk me through the refund process step by step?,0,none,public,conv-178
+synthetic-327-86,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-327
+public-87-86,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-87
+synthetic-596-175,"Hi, Could you walk me through the refund process step by step?",0,none,synthetic,conv-596
+public-201-80,I would like to change my shipping address on order 4421.,0,none,public,conv-201
+public-121-0,"No further action needed from my side, all good here.",0,none,public,conv-121
+public-20-19,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-20
+public-40-39,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-40
+synthetic-330-89,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-330
+public-168-47,"No further action needed from my side, all good here.",0,none,public,conv-168
+public-223-102,Could you walk me through the refund process step by step?,0,none,public,conv-223
+synthetic-336-95,!!! THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! !!!,1,repeated_correction,synthetic,conv-336
+public-74-73,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-74
+synthetic-451-30,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-451
+synthetic-534-113,"Hi, Thanks for the update, that answers my question.",0,none,synthetic,conv-534
+synthetic-299-58,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-299
+public-226-105,"Thanks for the update, that answers my question.",0,none,public,conv-226
+public-52-51,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-52
+public-170-49,"That worked perfectly, appreciate your help today.",0,none,public,conv-170
+synthetic-557-136,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-557
+public-65-64,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-65
+synthetic-587-166,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-587
+synthetic-592-171,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-592
+synthetic-511-90,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-511
+synthetic-554-133,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-554
+synthetic-584-163,"Quick question: Thanks for the update, that answers my question.",0,none,synthetic,conv-584
+synthetic-243-2,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-243
+public-163-42,"No further action needed from my side, all good here.",0,none,public,conv-163
+public-23-22,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-23
+synthetic-366-125,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-366
+synthetic-447-26,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-447
+synthetic-395-154,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-395
+synthetic-325-84,!!! THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! !!!,1,repeated_correction,synthetic,conv-325
+synthetic-539-118,"Hi, Could you walk me through the refund process step by step?",0,none,synthetic,conv-539
+synthetic-371-130,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-371
+synthetic-541-120,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-541
+public-194-73,"That worked perfectly, appreciate your help today.",0,none,public,conv-194
+synthetic-563-142,"Hi, Could you walk me through the refund process step by step?",0,none,synthetic,conv-563
+synthetic-372-131,"Terrible awful useless response, I am abandoning this chat Again: Terrible awful useless response, I am abandoning this chat",1,repeated_correction,synthetic,conv-372
+public-177-56,I would like to change my shipping address on order 4421.,0,none,public,conv-177
+synthetic-407-166,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-407
+synthetic-276-35,"!!! I am so angry and frustrated, this is the worst experience ever !!!",1,repeated_correction,synthetic,conv-276
+public-229-108,"No further action needed from my side, all good here.",0,none,public,conv-229
+synthetic-433-12,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-433
+synthetic-251-10,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-251
+synthetic-577-156,Could you walk me through the refund process step by step? Thank you.,0,none,synthetic,conv-577
+synthetic-453-32,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-453
+synthetic-464-43,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-464
+synthetic-335-94,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-335
+synthetic-260-19,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-260
+public-175-54,I would like to change my shipping address on order 4421.,0,none,public,conv-175
+synthetic-308-67,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-308
+public-142-21,Please help me understand my account balance for March.,0,none,public,conv-142
+public-36-35,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-36
+public-70-69,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-70
+synthetic-402-161,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-402
+public-98-97,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-98
+synthetic-551-130,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-551
+public-75-74,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-75
+synthetic-320-79,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-320
+public-234-113,I would like to change my shipping address on order 4421.,0,none,public,conv-234
+public-125-4,"No further action needed from my side, all good here.",0,none,public,conv-125
+synthetic-242-1,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-242
+synthetic-582-161,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-582
+public-213-92,Please help me understand my account balance for March.,0,none,public,conv-213
+synthetic-413-172,!!! THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! !!!,1,repeated_correction,synthetic,conv-413
+synthetic-261-20,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-261
+synthetic-458-37,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-458
+synthetic-454-33,Quick question: I would like to change my shipping address on order 4421.,0,none,synthetic,conv-454
+public-79-78,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-79
+synthetic-529-108,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-529
+synthetic-347-106,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-347
+synthetic-437-16,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-437
+synthetic-435-14,Quick question: I would like to change my shipping address on order 4421.,0,none,synthetic,conv-435
+public-48-47,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-48
+public-209-88,"No further action needed from my side, all good here.",0,none,public,conv-209
+synthetic-322-81,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-322
+public-8-7,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-8
+synthetic-467-46,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-467
+public-160-39,"Thanks for the update, that answers my question.",0,none,public,conv-160
+public-82-81,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-82
+synthetic-469-48,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-469
+synthetic-312-71,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-312
+synthetic-323-82,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-323
+synthetic-536-115,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-536
+public-63-62,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-63
+synthetic-249-8,"Terrible awful useless response, I am abandoning this chat Again: Terrible awful useless response, I am abandoning this chat",1,repeated_correction,synthetic,conv-249
+synthetic-409-168,Wrong again. Wrong again. Wrong again. Fix it immediately!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-409
+synthetic-363-122,"!!! I am so angry and frustrated, this is the worst experience ever !!!",1,repeated_correction,synthetic,conv-363
+public-68-67,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-68
+synthetic-523-102,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-523
+synthetic-432-11,Could you walk me through the refund process step by step? Thank you.,0,none,synthetic,conv-432
+public-105-104,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-105
+public-27-26,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-27
+synthetic-383-142,Wrong again. Wrong again. Wrong again. Fix it immediately!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-383
+synthetic-443-22,Please help me understand my account balance for March. Thank you.,0,none,synthetic,conv-443
+synthetic-256-15,!!! THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! !!!,1,repeated_correction,synthetic,conv-256
+synthetic-319-78,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-319
+public-186-65,I would like to change my shipping address on order 4421.,0,none,public,conv-186
+synthetic-385-144,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-385
+public-97-96,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-97
+public-28-27,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-28
+public-212-91,I would like to change my shipping address on order 4421.,0,none,public,conv-212
+synthetic-556-135,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-556
+synthetic-559-138,Please help me understand my account balance for March. Thank you.,0,none,synthetic,conv-559
+synthetic-337-96,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-337
+public-1-0,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-1
+synthetic-264-23,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-264
+synthetic-414-173,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-414
+public-60-59,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-60
+synthetic-403-162,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-403
+synthetic-585-164,Could you walk me through the refund process step by step? Thank you.,0,none,synthetic,conv-585
+public-162-41,"Thanks for the update, that answers my question.",0,none,public,conv-162
+public-46-45,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-46
+synthetic-450-29,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-450
+public-19-18,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-19
+synthetic-282-41,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-282
+public-206-85,"No further action needed from my side, all good here.",0,none,public,conv-206
+synthetic-340-99,!!! Stop ignoring me!!! I already told you three times!!! !!!,1,repeated_correction,synthetic,conv-340
+synthetic-421-0,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-421
+synthetic-254-13,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-254
+synthetic-356-115,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-356
+public-211-90,I would like to change my shipping address on order 4421.,0,none,public,conv-211
+public-169-48,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-169
+public-83-82,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-83
+public-54-53,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-54
+synthetic-344-103,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-344
+public-165-44,Please help me understand my account balance for March.,0,none,public,conv-165
+public-171-50,I would like to change my shipping address on order 4421.,0,none,public,conv-171
+synthetic-463-42,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-463
+public-179-58,I would like to change my shipping address on order 4421.,0,none,public,conv-179
+synthetic-386-145,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-386
+synthetic-399-158,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-399
+synthetic-252-11,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-252
+synthetic-326-85,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-326
+public-224-103,"That worked perfectly, appreciate your help today.",0,none,public,conv-224
+synthetic-531-110,"Hi, I would like to change my shipping address on order 4421.",0,none,synthetic,conv-531
+public-93-92,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-93
+public-143-22,Could you walk me through the refund process step by step?,0,none,public,conv-143
+synthetic-489-68,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-489
+synthetic-334-93,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-334
+synthetic-266-25,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-266
+synthetic-575-154,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-575
+public-90-89,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-90
+synthetic-388-147,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-388
+synthetic-426-5,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-426
+synthetic-296-55,"!!! I am so angry and frustrated, this is the worst experience ever !!!",1,repeated_correction,synthetic,conv-296
+public-138-17,"That worked perfectly, appreciate your help today.",0,none,public,conv-138
+synthetic-599-178,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-599
+synthetic-580-159,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-580
+synthetic-586-165,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-586
+synthetic-301-60,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-301
+synthetic-295-54,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-295
+synthetic-346-105,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-346
+public-118-117,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-118
+synthetic-533-112,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-533
+public-14-13,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-14
+public-129-8,"That worked perfectly, appreciate your help today.",0,none,public,conv-129
+synthetic-537-116,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-537
+public-166-45,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-166
+synthetic-377-136,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-377
+synthetic-548-127,"Thanks for the update, that answers my question. Thank you.",0,none,synthetic,conv-548
+public-21-20,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-21
+synthetic-307-66,"!!! I hate this stupid broken service, escalate me to a human NOW !!!",1,repeated_correction,synthetic,conv-307
+synthetic-471-50,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-471
+synthetic-420-179,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-420
+synthetic-253-12,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-253
+synthetic-277-36,"!!! I am so angry and frustrated, this is the worst experience ever !!!",1,repeated_correction,synthetic,conv-277
+synthetic-257-16,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-257
+public-140-19,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-140
+public-207-86,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-207
+synthetic-359-118,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-359
+synthetic-506-85,"Hi, Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-506
+synthetic-461-40,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-461
+public-240-119,"Thanks for the update, that answers my question.",0,none,public,conv-240
+public-64-63,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-64
+public-225-104,"Thanks for the update, that answers my question.",0,none,public,conv-225
+synthetic-455-34,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-455
+synthetic-483-62,"Quick question: No further action needed from my side, all good here.",0,none,synthetic,conv-483
+synthetic-384-143,!!! ESCALATE ESCALATE ESCALATE this is ridiculous!!! !!!,1,repeated_correction,synthetic,conv-384
+synthetic-460-39,"Hi, Could you walk me through the refund process step by step?",0,none,synthetic,conv-460
+public-158-37,I would like to change my shipping address on order 4421.,0,none,public,conv-158
+synthetic-444-23,Quick question: I would like to change my shipping address on order 4421.,0,none,synthetic,conv-444
+public-85-84,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-85
+synthetic-525-104,"Quick question: Thanks for the update, that answers my question.",0,none,synthetic,conv-525
+synthetic-449-28,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-449
+public-73-72,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-73
+synthetic-424-3,"Hi, That worked perfectly, appreciate your help today.",0,none,synthetic,conv-424
+public-137-16,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-137
+synthetic-510-89,"Hi, That worked perfectly, appreciate your help today.",0,none,synthetic,conv-510
+synthetic-332-91,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-332
+synthetic-495-74,Could you walk me through the refund process step by step? Thank you.,0,none,synthetic,conv-495
+synthetic-279-38,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-279
+public-59-58,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-59
+synthetic-593-172,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-593
+public-102-101,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-102
+synthetic-412-171,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-412
+synthetic-472-51,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-472
+synthetic-597-176,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-597
+synthetic-475-54,"Hi, Thanks for the update, that answers my question.",0,none,synthetic,conv-475
+synthetic-406-165,"!!! I am so angry and frustrated, this is the worst experience ever !!!",1,repeated_correction,synthetic,conv-406
+synthetic-404-163,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-404
+synthetic-473-52,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-473
+public-120-119,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-120
+synthetic-352-111,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-352
+public-37-36,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-37
+synthetic-540-119,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-540
+synthetic-487-66,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-487
+synthetic-360-119,!!! Stop ignoring me!!! I already told you three times!!! !!!,1,repeated_correction,synthetic,conv-360
+public-145-24,Please help me understand my account balance for March.,0,none,public,conv-145
+synthetic-362-121,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-362
+public-148-27,I would like to change my shipping address on order 4421.,0,none,public,conv-148
+public-119-118,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-119
+public-17-16,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-17
+public-150-29,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-150
+synthetic-241-0,ESCALATE ESCALATE ESCALATE this is ridiculous!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-241
+synthetic-305-64,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-305
+synthetic-564-143,"Hi, I would like to change my shipping address on order 4421.",0,none,synthetic,conv-564
+synthetic-524-103,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-524
+public-210-89,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-210
+public-2-1,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-2
+synthetic-470-49,Please help me understand my account balance for March. Thank you.,0,none,synthetic,conv-470
+public-39-38,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-39
+synthetic-588-167,"Hi, That worked perfectly, appreciate your help today.",0,none,synthetic,conv-588
+public-89-88,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-89
+synthetic-552-131,"Hi, I would like to change my shipping address on order 4421.",0,none,synthetic,conv-552
+public-81-80,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-81
+public-42-41,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-42
+synthetic-562-141,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-562
+public-136-15,Please help me understand my account balance for March.,0,none,public,conv-136
+public-109-108,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-109
+synthetic-321-80,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-321
+public-107-106,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-107
+synthetic-391-150,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-391
+public-51-50,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-51
+synthetic-379-138,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-379
+synthetic-313-72,!!! Stop ignoring me!!! I already told you three times!!! !!!,1,repeated_correction,synthetic,conv-313
+public-31-30,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-31
+synthetic-318-77,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-318
+synthetic-526-105,Could you walk me through the refund process step by step? Thank you.,0,none,synthetic,conv-526
+public-157-36,Please help me understand my account balance for March.,0,none,public,conv-157
+public-220-99,I would like to change my shipping address on order 4421.,0,none,public,conv-220
+synthetic-572-151,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-572
+synthetic-441-20,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-441
+public-153-32,I would like to change my shipping address on order 4421.,0,none,public,conv-153
+synthetic-571-150,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-571
+synthetic-466-45,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-466
+public-231-110,Please help me understand my account balance for March.,0,none,public,conv-231
+public-195-74,Please help me understand my account balance for March.,0,none,public,conv-195
+synthetic-268-27,"I hate this stupid broken service, escalate me to a human NOW I need a supervisor immediately.",1,repeated_correction,synthetic,conv-268
+synthetic-398-157,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-398
+public-116-115,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-116
+synthetic-317-76,ESCALATE ESCALATE ESCALATE this is ridiculous!!! Again: ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,repeated_correction,synthetic,conv-317
+synthetic-405-164,"Terrible awful useless response, I am abandoning this chat Again: Terrible awful useless response, I am abandoning this chat",1,repeated_correction,synthetic,conv-405
+synthetic-306-65,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-306
+synthetic-311-70,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-311
+public-214-93,Please help me understand my account balance for March.,0,none,public,conv-214
+synthetic-392-151,ESCALATE ESCALATE ESCALATE this is ridiculous!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-392
+synthetic-286-45,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-286
+public-61-60,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-61
+public-128-7,Could you walk me through the refund process step by step?,0,none,public,conv-128
+public-44-43,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-44
+public-156-35,Please help me understand my account balance for March.,0,none,public,conv-156
+synthetic-486-65,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-486
+synthetic-289-48,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-289
+synthetic-416-175,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-416
+public-77-76,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-77
+public-78-77,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-78
+public-55-54,ESCALATE ESCALATE ESCALATE this is ridiculous!!!,1,escalation,public,conv-55
+public-76-75,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-76
+synthetic-504-83,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-504
+synthetic-411-170,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-411
+public-67-66,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-67
+public-117-116,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-117
+synthetic-490-69,"Hi, That worked perfectly, appreciate your help today.",0,none,synthetic,conv-490
+synthetic-259-18,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-259
+public-53-52,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-53
+public-189-68,"No further action needed from my side, all good here.",0,none,public,conv-189
+synthetic-590-169,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-590
+synthetic-452-31,"Quick question: That worked perfectly, appreciate your help today.",0,none,synthetic,conv-452
+synthetic-491-70,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-491
+synthetic-481-60,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-481
+synthetic-292-51,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-292
+public-13-12,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-13
+public-106-105,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-106
+synthetic-576-155,"Hi, No further action needed from my side, all good here.",0,none,synthetic,conv-576
+synthetic-535-114,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-535
+synthetic-300-59,"!!! I am so angry and frustrated, this is the worst experience ever !!!",1,repeated_correction,synthetic,conv-300
+public-56-55,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-56
+public-47-46,"I hate this stupid broken service, escalate me to a human NOW",1,escalation,public,conv-47
+synthetic-281-40,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-281
+public-130-9,Could you walk me through the refund process step by step?,0,none,public,conv-130
+public-15-14,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-15
+synthetic-310-69,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-310
+public-184-63,"Thanks for the update, that answers my question.",0,none,public,conv-184
+synthetic-370-129,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-370
+public-233-112,Please help me understand my account balance for March.,0,none,public,conv-233
+synthetic-304-63,ESCALATE ESCALATE ESCALATE this is ridiculous!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-304
+public-199-78,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-199
+public-103-102,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-103
+synthetic-290-49,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-290
+synthetic-538-117,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-538
+synthetic-284-43,"I hate this stupid broken service, escalate me to a human NOW Again: I hate this stupid broken service, escalate me to a human NOW",1,repeated_correction,synthetic,conv-284
+synthetic-496-75,"That worked perfectly, appreciate your help today. Thank you.",0,none,synthetic,conv-496
+public-222-101,I would like to change my shipping address on order 4421.,0,none,public,conv-222
+public-197-76,"Thanks for the update, that answers my question.",0,none,public,conv-197
+public-190-69,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-190
+synthetic-549-128,"Hi, Thanks for the update, that answers my question.",0,none,synthetic,conv-549
+public-123-2,"Thanks for the update, that answers my question.",0,none,public,conv-123
+synthetic-324-83,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-324
+public-198-77,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-198
+public-124-3,Please help me understand my account balance for March.,0,none,public,conv-124
+public-237-116,"Great, the new password reset flow makes sense to me now.",0,none,public,conv-237
+synthetic-258-17,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-258
+synthetic-568-147,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-568
+synthetic-278-37,"I am so angry and frustrated, this is the worst experience ever I need a supervisor immediately.",1,repeated_correction,synthetic,conv-278
+synthetic-465-44,"Hi, Thanks for the update, that answers my question.",0,none,synthetic,conv-465
+synthetic-361-120,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-361
+synthetic-339-98,Stop ignoring me!!! I already told you three times!!! Again: Stop ignoring me!!! I already told you three times!!!,1,repeated_correction,synthetic,conv-339
+synthetic-436-15,"Quick question: Great, the new password reset flow makes sense to me now.",0,none,synthetic,conv-436
+synthetic-353-112,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-353
+synthetic-544-123,"Hi, That worked perfectly, appreciate your help today.",0,none,synthetic,conv-544
+synthetic-485-64,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-485
+synthetic-378-137,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-378
+synthetic-314-73,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-314
+synthetic-250-9,"!!! Terrible awful useless response, I am abandoning this chat !!!",1,repeated_correction,synthetic,conv-250
+synthetic-415-174,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-415
+public-227-106,Could you walk me through the refund process step by step?,0,none,public,conv-227
+synthetic-302-61,!!! Wrong again. Wrong again. Wrong again. Fix it immediately!!! !!!,1,repeated_correction,synthetic,conv-302
+public-96-95,Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,escalation,public,conv-96
+public-18-17,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,escalation,public,conv-18
+synthetic-459-38,"Great, the new password reset flow makes sense to me now. Thank you.",0,none,synthetic,conv-459
+synthetic-503-82,"Hi, Please help me understand my account balance for March.",0,none,synthetic,conv-503
+synthetic-488-67,Quick question: I would like to change my shipping address on order 4421.,0,none,synthetic,conv-488
+synthetic-247-6,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-247
+synthetic-569-148,I would like to change my shipping address on order 4421. Thank you.,0,none,synthetic,conv-569
+synthetic-501-80,Quick question: Could you walk me through the refund process step by step?,0,none,synthetic,conv-501
+synthetic-417-176,"!!! I am so angry and frustrated, this is the worst experience ever !!!",1,repeated_correction,synthetic,conv-417
+synthetic-248-7,Stop ignoring me!!! I already told you three times!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-248
+public-88-87,"I am so angry and frustrated, this is the worst experience ever",1,escalation,public,conv-88
+public-196-75,"That worked perfectly, appreciate your help today.",0,none,public,conv-196
+synthetic-530-109,Please help me understand my account balance for March. Thank you.,0,none,synthetic,conv-530
+public-11-10,"Terrible awful useless response, I am abandoning this chat",1,escalation,public,conv-11
+synthetic-570-149,"No further action needed from my side, all good here. Thank you.",0,none,synthetic,conv-570
+synthetic-283-42,Wrong again. Wrong again. Wrong again. Fix it immediately!!! Again: Wrong again. Wrong again. Wrong again. Fix it immediately!!!,1,repeated_correction,synthetic,conv-283
+synthetic-287-46,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-287
+synthetic-349-108,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-349
+synthetic-265-24,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-265
+synthetic-364-123,THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!! Again: THIS IS UNACCEPTABLE!!! I keep repeating myself and nobody listens!!!,1,repeated_correction,synthetic,conv-364
+public-218-97,I would like to change my shipping address on order 4421.,0,none,public,conv-218
+synthetic-500-79,Quick question: Please help me understand my account balance for March.,0,none,synthetic,conv-500
+public-187-66,"No further action needed from my side, all good here.",0,none,public,conv-187
+synthetic-333-92,"Terrible awful useless response, I am abandoning this chat I need a supervisor immediately.",1,repeated_correction,synthetic,conv-333
+synthetic-507-86,"Quick question: Thanks for the update, that answers my question.",0,none,synthetic,conv-507
+public-30-29,Stop ignoring me!!! I already told you three times!!!,1,escalation,public,conv-30
+synthetic-345-104,ESCALATE ESCALATE ESCALATE this is ridiculous!!! I need a supervisor immediately.,1,repeated_correction,synthetic,conv-345
+synthetic-389-148,"I am so angry and frustrated, this is the worst experience ever Again: I am so angry and frustrated, this is the worst experience ever",1,repeated_correction,synthetic,conv-389

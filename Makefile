@@ -4,7 +4,7 @@ PY_OUT=gen/python
 
 export PATH := $(HOME)/go/bin:$(PATH)
 
-.PHONY: proto gen-proto test lint vuln up smoke smoke-ollama
+.PHONY: proto gen-proto test lint vuln up smoke smoke-ollama train-model
 
 proto: gen-proto
 
@@ -42,3 +42,9 @@ smoke: up
 
 smoke-ollama:
 	./scripts/smoke-ollama.sh
+
+train-model:
+	cd signal-engine && PYTHONPATH=.:../gen/python python3 training/prepare_data.py
+	cd signal-engine && PYTHONPATH=.:../gen/python python3 training/train.py
+	cd signal-engine && PYTHONPATH=.:../gen/python python3 training/export_onnx.py
+	cd signal-engine && PYTHONPATH=.:../gen/python python3 training/evaluate.py
