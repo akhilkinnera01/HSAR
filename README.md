@@ -66,7 +66,9 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 | Policy engine (shadow counterfactual traces) | ✅ Tested (`make test`) |
 | Enforce mode (inline mutation + fail-open) | ✅ Tested (`make test`, `scripts/smoke-enforce.sh`) |
 | Canary rollout + kill switch | ✅ Tested (`make test`) |
-| OTel + load/chaos benchmarks | 🔜 Phase 5 |
+| OTel metrics/traces + `/metrics` | ✅ Tested (`make test`) |
+| Load + chaos benchmarks | ✅ Measured (`make bench-load`, `make bench-chaos` → `docs/benchmarks.md`) |
+| Grafana dashboard | ✅ [`dashboards/hsar.json`](dashboards/hsar.json) + `make up-observability` |
 
 ---
 
@@ -76,6 +78,9 @@ If HSAR exceeds its latency budget or fails, requests pass through unmodified.
 make test          # unit tests (Go + Python)
 make up            # docker compose up (echo upstream)
 make smoke         # auth + shadow + fail-open check
+make up-observability  # Prometheus + Grafana + OTel collector
+make bench-load    # runtime SLO load harness (requires k6)
+make bench-chaos   # fail-open under outage (requires k6)
 
 # Optional: real model via Ollama
 docker compose --profile ollama up -d

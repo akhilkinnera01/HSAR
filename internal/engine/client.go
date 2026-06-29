@@ -17,6 +17,7 @@ type Client struct {
 	conn      *grpc.ClientConn
 	stub      hsarv1.SignalServiceClient
 	evaluator *policy.Evaluator
+	OnShadowAbstain func()
 }
 
 func NewClientFromEnv(evaluator *policy.Evaluator) (*Client, error) {
@@ -76,6 +77,10 @@ func (c *Client) ShadowGetSignals(tenantID, requestID, conversationID, text stri
 		"confidence", sf.Confidence,
 		"latency_ms", sf.ProcessingLatencyMs,
 	)
+
+	if sf.GetAbstain() && c.OnShadowAbstain != nil {
+		c.OnShadowAbstain()
+	}
 
 	if c.evaluator == nil {
 		return

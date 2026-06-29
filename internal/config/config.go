@@ -34,6 +34,10 @@ type Config struct {
 	TenantsByKey    map[string]Tenant
 	DefaultRPS      float64
 	DefaultBurst    int
+	MetricsEnabled  bool
+	OTelEndpoint    string
+	OTelServiceName string
+	TelemetrySampleRatio float64
 }
 
 type fileConfig struct {
@@ -53,6 +57,10 @@ func Load() (Config, error) {
 		InlineBudgetMs:    envIntOr("INLINE_BUDGET_MS", 30),
 		DefaultRPS:          envFloatOr("TENANT_RATE_RPS", 10),
 		DefaultBurst:    envIntOr("TENANT_RATE_BURST", 20),
+		MetricsEnabled:  envBoolOr("METRICS_ENABLED", true),
+		OTelEndpoint:    envOr("OTEL_EXPORTER_OTLP_ENDPOINT", "otel-collector:4317"),
+		OTelServiceName: envOr("OTEL_SERVICE_NAME", "hsar-proxy"),
+		TelemetrySampleRatio: envFloatOr("TELEMETRY_SAMPLE_RATIO", 1.0),
 		TenantsByKey:    map[string]Tenant{},
 	}
 

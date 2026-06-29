@@ -16,15 +16,13 @@ type ConversationState struct {
 
 // StateStore holds FSM state keyed by tenant:conversation.
 type StateStore struct {
-	mu    sync.Mutex
-	store map[string]*sync.Mutex
-	data  map[string]ConversationState
+	mu   sync.Mutex
+	data map[string]ConversationState
 }
 
 func NewStateStore() *StateStore {
 	return &StateStore{
-		store: map[string]*sync.Mutex{},
-		data:  map[string]ConversationState{},
+		data: map[string]ConversationState{},
 	}
 }
 
@@ -32,39 +30,34 @@ func (s *StateStore) key(tenantID, conversationID string) string {
 	return tenantID + ":" + conversationID
 }
 
-func (s *StateStore) lockFor(key string) *sync.Mutex {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	if m, ok := s.store[key]; ok {
-		return m
+func defaultState() ConversationState {
+	return ConversationState{
+		StabilityState:   hsarv1.StabilityState_STATE_NORMAL,
+		MatchedRuleIndex: -1,
 	}
-	m := &sync.Mutex{}
-	s.store[key] = m
-	if _, ok := s.data[key]; !ok {
-		s.data[key] = ConversationState{
-			StabilityState:   hsarv1.StabilityState_STATE_NORMAL,
-			MatchedRuleIndex: -1,
-		}
-	}
-	return m
 }
 
 // Get returns a copy of state for key.
 func (s *StateStore) Get(tenantID, conversationID string) ConversationState {
 	key := s.key(tenantID, conversationID)
-	m := s.lockFor(key)
-	m.Lock()
-	defer m.Unlock()
-	return s.data[key]
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	st, ok := s.data[key]
+	if !ok {
+		return defaultState()
+	}
+	return st
 }
 
 // Update runs fn with exclusive access to conversation state.
 func (s *StateStore) Update(tenantID, conversationID string, fn func(*ConversationState)) {
 	key := s.key(tenantID, conversationID)
-	m := s.lockFor(key)
-	m.Lock()
-	defer m.Unlock()
-	st := s.data[key]
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	st, ok := s.data[key]
+	if !ok {
+		st = defaultState()
+	}
 	fn(&st)
 	s.data[key] = st
 }

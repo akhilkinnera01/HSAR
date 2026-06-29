@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: HSAR
+    orgId: 1
+    folder: HSAR
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

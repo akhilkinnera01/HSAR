@@ -1,0 +1,68 @@
+{
+  "title": "HSAR Governance Health",
+  "uid": "hsar-governance",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "panels": [
+    {
+      "id": 1,
+      "title": "Inline latency p99",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(hsar_inline_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "inline p99"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Policy eval p99",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(hsar_policy_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "policy p99"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Fail-open rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 8 },
+      "targets": [{ "expr": "sum(rate(hsar_fail_open_total[5m]))", "legendFormat": "fail-open" }]
+    },
+    {
+      "id": 4,
+      "title": "Abstain rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 8 },
+      "targets": [{ "expr": "rate(hsar_abstain_total[5m])", "legendFormat": "abstain" }]
+    },
+    {
+      "id": 5,
+      "title": "Kill-switch passthrough",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 8 },
+      "targets": [{ "expr": "rate(hsar_kill_switch_passthrough_total[5m])", "legendFormat": "kill-switch" }]
+    },
+    {
+      "id": 6,
+      "title": "Actions by type",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "targets": [{ "expr": "sum by (action_type) (rate(hsar_action_applied_total[5m]))", "legendFormat": "{{action_type}}" }]
+    },
+    {
+      "id": 7,
+      "title": "Policy transitions",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "targets": [{ "expr": "sum(rate(hsar_policy_state_transition_total[5m]))", "legendFormat": "transitions" }]
+    }
+  ]
+}
