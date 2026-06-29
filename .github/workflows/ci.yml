@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'phase-*', 'feat/*']
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - uses: bufbuild/buf-setup-action@v1
+
+      - name: Install Go protoc plugins
+        run: |
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.5
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
+
+      - name: Install Python tooling
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r signal-engine/requirements.txt -r signal-engine/requirements-dev.txt
+
+      - name: Lint and test
+        run: make lint test
+
+      - name: Vulnerability scan
+        run: |
+          go install golang.org/x/vuln/cmd/govulncheck@latest
+          govulncheck ./...

@@ -1,0 +1,15 @@
+version: v2
+modules:
+  - path: proto
+lint:
+  use:
+    - STANDARD
+  except:
+    # HSAR API uses short enum prefixes (ACTION_*, STATE_*, ABSTAIN_*).
+    - ENUM_VALUE_PREFIX
+    # ProcessSignal(SignalRequest) -> SignalFrame is the established contract.
+    - RPC_REQUEST_STANDARD_NAME
+    - RPC_RESPONSE_STANDARD_NAME
+breaking:
+  use:
+    - FILE
